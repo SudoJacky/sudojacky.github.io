@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.npm-cache/
+.prototype-bootstrap/
+
+# Local design sources and verification artifacts
+AGENTS.md
+DESIGN.md
+design-qa.md
+.design-qa/
