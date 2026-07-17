@@ -1,0 +1,149 @@
+.lanyard-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  cursor: grab;
+}
+
+.lanyard-wrapper[data-dragging="true"] {
+  cursor: grabbing;
+}
+
+.lanyard-wrapper canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.lanyard-static {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  pointer-events: none;
+}
+
+.lanyard-static__strap {
+  width: 7px;
+  height: 42%;
+  position: absolute;
+  top: -4%;
+  left: 50%;
+  transform: rotate(8deg);
+  transform-origin: top;
+  border-radius: 2px;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(197, 255, 61, 0.9) 0 1px,
+      transparent 1px 13px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      #080c0b 0 2px,
+      #2b3531 2px 4px,
+      #151d1a 4px 7px
+    );
+  box-shadow:
+    1px 0 0 rgba(255, 255, 255, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.lanyard-static__card {
+  width: min(92%, 270px);
+  aspect-ratio: 0.72;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  padding: 24px;
+  border: 1px solid rgba(197, 255, 61, 0.48);
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 28%),
+    linear-gradient(rgba(197, 255, 61, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(197, 255, 61, 0.06) 1px, transparent 1px),
+    #111918;
+  background-size: auto, 24px 24px, 24px 24px, auto;
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  transform: rotate(5deg);
+}
+
+.lanyard-static__card::before {
+  content: "";
+  width: 42px;
+  height: 9px;
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  border-radius: 999px;
+  background: #080c0c;
+  transform: translateX(-50%);
+}
+
+.lanyard-static__card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(115deg, transparent 58%, rgba(197, 255, 61, 0.1));
+  pointer-events: none;
+}
+
+.lanyard-static__bottom {
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.lanyard-static__identity span {
+  display: block;
+}
+
+.lanyard-static__identity img {
+  width: 78px;
+  height: 78px;
+  display: block;
+  margin-bottom: 10px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.lanyard-static__identity span {
+  font-size: 17px;
+}
+
+.lanyard-static__identity small {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-family: "IBM Plex Sans", Arial, sans-serif;
+  font-size: 12px;
+}
+
+.lanyard-static__details {
+  display: grid;
+  gap: 7px;
+  padding: 9px 0;
+  border-top: 1px solid rgba(232, 231, 224, 0.18);
+  border-bottom: 1px solid rgba(232, 231, 224, 0.18);
+  color: var(--text);
+  font-size: 9px;
+}
+
+.lanyard-static__details span,
+.lanyard-static__details small {
+  display: block;
+}
+
+.lanyard-static__details small {
+  margin-bottom: 2px;
+  color: var(--muted);
+  font-size: 7px;
+  letter-spacing: 0.08em;
+}
