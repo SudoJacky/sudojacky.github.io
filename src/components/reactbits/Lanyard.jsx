@@ -75,35 +75,25 @@ function drawCardTexture(side, avatarImage) {
 
     context.fillStyle = "#e8e7e0";
     context.font = "500 56px 'IBM Plex Mono', monospace";
-    context.fillText("SudoJacky", 58, 454);
+    context.textAlign = "center";
+    context.fillText("Jacky", 384, 454);
     context.fillStyle = "#a8aaa6";
     context.font = "400 29px 'IBM Plex Sans', sans-serif";
-    context.fillText("Software Engineer", 60, 500);
+    context.fillText("Software Engineer", 384, 500);
+    context.textAlign = "left";
 
     drawRule(548);
-    drawLabel("IDENTIFIER", 56, 596);
-    drawLabel("TYPE", 390, 596);
-    context.fillStyle = "#e8e7e0";
-    context.font = "500 27px 'IBM Plex Mono', monospace";
-    context.fillText("SJ-2405", 56, 636);
-    context.fillText("PERSONAL SITE", 390, 636);
-
-    drawLabel("ACCESS", 56, 698);
-    context.fillStyle = "#c5ff3d";
-    context.font = "500 20px 'IBM Plex Mono', monospace";
-    context.fillText("HOME / PROJECTS / NOTES / DOCS", 56, 736);
-
     context.fillStyle = "rgba(197, 255, 61, 0.065)";
-    context.fillRect(56, 774, 656, 142);
+    context.fillRect(56, 624, 656, 142);
     context.strokeStyle = "rgba(197, 255, 61, 0.34)";
-    context.strokeRect(56, 774, 656, 142);
-    drawLabel("CURRENT EXPERIENCE", 78, 812);
+    context.strokeRect(56, 624, 656, 142);
+    drawLabel("CURRENT EXPERIENCE", 78, 662);
     context.fillStyle = "#e8e7e0";
     context.font = "500 31px 'IBM Plex Mono', monospace";
-    context.fillText("Samsung Electronics", 78, 855);
+    context.fillText("Samsung Research", 78, 705);
     context.fillStyle = "#c5ff3d";
     context.font = "500 18px 'IBM Plex Mono', monospace";
-    context.fillText("MAY 2024 - PRESENT", 78, 890);
+    context.fillText("MAY 2024 - PRESENT", 78, 740);
   } else {
     context.fillStyle = "#c5ff3d";
     context.fillRect(56, 58, 10, 112);
@@ -111,7 +101,7 @@ function drawCardTexture(side, avatarImage) {
     context.fillText("PROFILE / REVERSE", 92, 91);
     context.fillStyle = "#8d938e";
     context.font = "500 17px 'IBM Plex Mono', monospace";
-    context.fillText("SUDOJACKY / 01", 92, 126);
+    context.fillText("JACKY / 01", 92, 126);
     context.fillStyle = "#c5ff3d";
     context.fillRect(584, 58, 128, 42);
     context.fillStyle = "#0b100f";
@@ -122,7 +112,7 @@ function drawCardTexture(side, avatarImage) {
     drawLabel("CURRENT EXPERIENCE", 56, 246);
     context.fillStyle = "#e8e7e0";
     context.font = "500 46px 'IBM Plex Mono', monospace";
-    context.fillText("Samsung Electronics", 56, 308);
+    context.fillText("Samsung Research", 56, 308);
     context.fillStyle = "#c5ff3d";
     context.font = "500 21px 'IBM Plex Mono', monospace";
     context.fillText("MAY 2024 - PRESENT", 56, 350);
@@ -214,17 +204,16 @@ function drawBandTexture() {
 
 function StaticLanyard() {
   return (
-    <div className="lanyard-static" aria-label="SudoJacky personal identity card">
+    <div className="lanyard-static" aria-label="Jacky personal identity card">
       <span className="lanyard-static__strap" aria-hidden="true" />
       <div className="lanyard-static__card">
         <div className="lanyard-static__identity">
           <img src={avatarImageUrl} alt="" />
-          <span>SudoJacky</span>
+          <span>Jacky</span>
           <small>Software Engineer</small>
         </div>
         <div className="lanyard-static__details">
-          <span><small>ID</small>SJ-2405</span>
-          <span><small>CURRENT</small>Samsung Electronics</span>
+          <span><small>CURRENT</small>Samsung Research</span>
         </div>
         <span className="lanyard-static__bottom">sudojacky.github.io</span>
       </div>
@@ -482,7 +471,7 @@ export default function Lanyard() {
       className="lanyard-wrapper"
       data-native-cursor
       data-dragging={dragging ? "true" : "false"}
-      aria-label="Draggable SudoJacky personal identity card"
+      aria-label="Draggable Jacky personal identity card"
     >
       <Canvas
         camera={{ position: [0, -3.2, 20], rotation: [0, 0, 0], fov: 20 }}

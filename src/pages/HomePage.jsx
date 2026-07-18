@@ -35,7 +35,7 @@ export default function HomePage() {
             loop={false}
             cursorCharacter="_"
           />
-          <p className="hero-intro">I'm SudoJacky, a software engineer focused on building reliable systems, useful tools, and products that are easy to understand and maintain.</p>
+          <p className="hero-intro">I'm Jacky, a software engineer focused on building reliable systems, useful tools, and products that are easy to understand and maintain.</p>
           <div className="hero-actions">
             <NavLink className="button button-primary" to="/projects">
               View my projects <ArrowRight aria-hidden="true" size={20} />
@@ -48,13 +48,6 @@ export default function HomePage() {
 
         <div className="hero-lower">
           <a href="https://github.com/SudoJacky" target="_blank" rel="noreferrer">GitHub ↗</a>
-          <button
-            className="scroll-cue"
-            type="button"
-            onClick={() => document.getElementById("experience")?.scrollIntoView()}
-          >
-            Scroll to experience <span aria-hidden="true">↓</span>
-          </button>
         </div>
       </section>
 
@@ -73,7 +66,7 @@ export default function HomePage() {
             <span className="experience-index" aria-hidden="true">01</span>
             <time dateTime="2024-05">May 2024 – Present</time>
             <div className="experience-company">
-              <h3>Samsung Electronics</h3>
+              <h3>Samsung Research</h3>
               <p>Software Engineer</p>
             </div>
           </SpotlightCard>

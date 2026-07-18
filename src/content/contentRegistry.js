@@ -32,6 +32,14 @@ export const notes = [
 
 export const projects = [
   {
+    slug: "tinybot",
+    status: "ACTIVE PROJECT",
+    title: "Tinybot",
+    summary: "A native AI workbench for agents, memory, tools, and multi-agent collaboration.",
+    stack: ["Rust", "Tauri", "React"],
+    component: lazy(() => import("../pages/projects/TinybotProjectPage")),
+  },
+  {
     slug: "virtualhome",
     status: "ACTIVE PROJECT",
     title: "VirtualHome",

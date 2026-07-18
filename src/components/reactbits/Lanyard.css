@@ -100,6 +100,10 @@
   letter-spacing: 0.08em;
 }
 
+.lanyard-static__identity {
+  text-align: center;
+}
+
 .lanyard-static__identity span {
   display: block;
 }
@@ -108,7 +112,7 @@
   width: 78px;
   height: 78px;
   display: block;
-  margin-bottom: 10px;
+  margin: 0 auto 10px;
   border: 2px solid var(--accent);
   border-radius: 50%;
   object-fit: cover;

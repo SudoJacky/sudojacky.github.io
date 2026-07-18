@@ -17,7 +17,7 @@ export default function AppShell() {
       <TargetCursor targetSelector="a, button" hoverDuration={0.16} />
 
       <header className="site-header">
-        <NavLink className="wordmark" to="/" aria-label="SudoJacky home">SudoJacky</NavLink>
+        <NavLink className="wordmark" to="/" aria-label="Jacky home">Jacky</NavLink>
         <button
           className="menu-button"
           type="button"
@@ -38,7 +38,7 @@ export default function AppShell() {
       <Outlet />
 
       <footer className="site-footer">
-        <span>© 2026 SudoJacky</span>
+        <span>© 2026 Jacky</span>
         <span>Built in public.</span>
       </footer>
     </div>
