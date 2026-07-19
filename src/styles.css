@@ -211,6 +211,92 @@ button { color: inherit; }
 .tinybot-system-map li > span { color: var(--accent); font-size: 11px; }
 .tinybot-system-map strong { font-size: 17px; font-weight: 400; }
 .tinybot-system-map small { color: var(--muted); font-family: "IBM Plex Sans", Arial, sans-serif; font-size: 14px; }
+.virtualhome-project-page { padding-top: 54px; }
+.virtualhome-project-hero { min-height: 620px; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.65fr); align-items: center; gap: clamp(56px, 8vw, 128px); padding-bottom: 86px; }
+.virtualhome-project-intro { min-width: 0; }
+.virtualhome-project-intro h1 { margin: 16px 0 24px; font-size: clamp(64px, 8vw, 124px); font-weight: 400; line-height: 0.92; letter-spacing: -0.065em; }
+.virtualhome-project-intro > p:not(.section-label) { max-width: 760px; color: var(--muted); font-family: "IBM Plex Sans", Arial, sans-serif; font-size: clamp(19px, 1.7vw, 24px); line-height: 1.55; }
+.virtualhome-project-actions { display: flex; align-items: center; gap: 30px; margin-top: 42px; }
+.virtualhome-project-actions .button { min-width: 220px; gap: 16px; }
+.virtualhome-runtime-panel { border: 1px solid var(--line); background: #121918; }
+.virtualhome-runtime-panel::before { content: "HOUSEHOLD PROFILE"; display: block; padding: 11px 16px; color: var(--muted); border-bottom: 1px solid var(--line); font-size: 10px; letter-spacing: 0.08em; }
+.virtualhome-brand { min-height: 176px; display: flex; align-items: center; gap: 22px; padding: 26px; border-bottom: 1px solid var(--line); }
+.virtualhome-brand > span { width: 90px; height: 90px; display: grid; flex: 0 0 auto; place-items: center; color: var(--accent); border: 1px solid rgba(197, 255, 61, 0.42); background: var(--accent-soft); }
+.virtualhome-brand h2 { margin: 8px 0 0; font-size: clamp(26px, 2.4vw, 34px); font-weight: 400; letter-spacing: -0.04em; }
+.virtualhome-runtime-list { margin: 0; }
+.virtualhome-runtime-list > div { min-height: 54px; display: grid; grid-template-columns: 1fr 1.25fr; align-items: center; padding: 0 20px; border-bottom: 1px solid var(--line); }
+.virtualhome-runtime-list > div:last-child { border-bottom: 0; }
+.virtualhome-runtime-list dt { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+.virtualhome-runtime-list dd { margin: 0; font-size: 13px; }
+.virtualhome-status-dot { width: 8px; height: 8px; display: inline-block; margin-right: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 14px rgba(197, 255, 61, 0.7); }
+.virtualhome-scroll-section { height: 640vh; margin: 0 calc(-1 * 28px); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.virtualhome-scroll-stage { height: calc(100svh - 82px); min-height: 680px; position: sticky; top: 82px; isolation: isolate; overflow: hidden; background: #0b1113; }
+.virtualhome-scroll-stage::before { content: ""; position: absolute; z-index: -2; inset: 0; opacity: 0.18; background-image: linear-gradient(rgba(197, 255, 61, 0.13) 1px, transparent 1px), linear-gradient(90deg, rgba(197, 255, 61, 0.13) 1px, transparent 1px); background-size: 42px 42px; mask-image: linear-gradient(90deg, #000, transparent 34%); }
+.virtualhome-scroll-stage::after { content: ""; width: 58%; height: 74%; position: absolute; z-index: -1; top: 12%; right: 3%; border-radius: 50%; background: radial-gradient(circle, rgba(111, 174, 151, 0.12), transparent 67%); filter: blur(24px); pointer-events: none; }
+.virtualhome-sim-header { height: 46px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; position: relative; z-index: 5; padding: 0 28px; color: #85918d; border-bottom: 1px solid #2d3735; background: rgba(13, 19, 20, 0.78); font-size: 9px; letter-spacing: 0.08em; }
+.virtualhome-sim-header span:nth-child(2) { display: flex; align-items: center; gap: 8px; color: #b7c1bd; }
+.virtualhome-sim-header span:last-child { justify-self: end; }
+.virtualhome-sim-header i { width: 6px; height: 6px; display: inline-block; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px rgba(197, 255, 61, 0.75); }
+.virtualhome-stage-copy { width: min(29%, 390px); position: absolute; z-index: 4; top: clamp(88px, 13vh, 124px); left: 28px; }
+.virtualhome-stage-copy h2 { margin: 16px 0 18px; font-size: clamp(32px, 3.4vw, 54px); font-weight: 400; line-height: 1.08; letter-spacing: -0.045em; }
+.virtualhome-stage-copy > p:last-child { margin: 0; color: var(--muted); font-family: "IBM Plex Sans", Arial, sans-serif; font-size: 15px; line-height: 1.7; }
+.virtualhome-scene { position: absolute; z-index: 1; top: 46px; right: -2%; bottom: 76px; left: 25%; overflow: hidden; }
+.virtualhome-scene canvas { display: block; }
+.virtualhome-scene-reticle { position: absolute; inset: 5% 4%; pointer-events: none; }
+.virtualhome-scene-reticle span { width: 30px; height: 30px; position: absolute; opacity: 0.48; border-color: var(--accent); }
+.virtualhome-scene-reticle span:nth-child(1) { top: 0; left: 0; border-top: 1px solid; border-left: 1px solid; }
+.virtualhome-scene-reticle span:nth-child(2) { top: 0; right: 0; border-top: 1px solid; border-right: 1px solid; }
+.virtualhome-scene-reticle span:nth-child(3) { right: 0; bottom: 0; border-right: 1px solid; border-bottom: 1px solid; }
+.virtualhome-scene-reticle span:nth-child(4) { bottom: 0; left: 0; border-bottom: 1px solid; border-left: 1px solid; }
+.virtualhome-stage-rail { width: min(27%, 340px); display: grid; gap: 0; position: absolute; z-index: 4; bottom: 118px; left: 28px; margin: 0; padding: 0; border-top: 1px solid #394340; list-style: none; }
+.virtualhome-stage-rail li { min-height: 42px; display: grid; grid-template-columns: 36px minmax(0, 1fr); align-items: center; color: #697470; border-bottom: 1px solid #2d3735; transition: color 240ms ease, background 240ms ease; }
+.virtualhome-stage-rail li > span { width: 24px; height: 24px; display: grid; place-items: center; border: 1px solid #394340; transition: border-color 240ms ease, background 240ms ease; }
+.virtualhome-stage-rail small { font-size: 9px; letter-spacing: 0.08em; }
+.virtualhome-stage-rail li[data-complete="true"] { color: #a2aaa6; }
+.virtualhome-stage-rail li[data-complete="true"] > span { color: #101611; border-color: var(--accent); background: var(--accent); }
+.virtualhome-stage-rail li.is-active { color: var(--text); background: linear-gradient(90deg, rgba(197, 255, 61, 0.09), transparent); }
+.virtualhome-stage-rail li.is-active > span { color: var(--accent); border-color: var(--accent); box-shadow: 0 0 16px rgba(197, 255, 61, 0.15); }
+.virtualhome-live-readout { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); position: absolute; z-index: 4; right: 28px; bottom: 20px; left: 28px; border: 1px solid #35403d; background: rgba(12, 19, 20, 0.9); backdrop-filter: blur(10px); }
+.virtualhome-live-readout > div { min-height: 54px; display: flex; align-items: center; gap: 13px; padding: 0 16px; border-right: 1px solid #35403d; }
+.virtualhome-live-readout > div:last-child { border-right: 0; }
+.virtualhome-live-readout svg { color: var(--accent); }
+.virtualhome-live-readout span { display: grid; gap: 4px; }
+.virtualhome-live-readout small { color: #75807c; font-size: 7px; letter-spacing: 0.09em; }
+.virtualhome-live-readout strong { color: #cbd0ca; font-size: 10px; font-weight: 400; letter-spacing: 0.04em; }
+.virtualhome-scroll-hint { position: absolute; z-index: 5; right: 28px; top: 66px; margin: 0; color: #6f7b77; font-size: 8px; letter-spacing: 0.08em; }
+.virtualhome-scroll-hint span { margin-left: 7px; color: var(--accent); }
+.virtualhome-stage-progress { width: 280px; height: 1px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; position: absolute; z-index: 5; top: 83px; left: 28px; background: #303a38; }
+.virtualhome-stage-progress i { position: relative; height: 1px; background: #394340; transition: background 240ms ease; }
+.virtualhome-stage-progress i::after { content: ""; width: 5px; height: 5px; position: absolute; top: -2px; right: 0; border-radius: 50%; background: #4a5652; transition: background 240ms ease, box-shadow 240ms ease; }
+.virtualhome-stage-progress i.is-reached { background: var(--accent); }
+.virtualhome-stage-progress i.is-reached::after { background: var(--accent); box-shadow: 0 0 10px rgba(197, 255, 61, 0.48); }
+.virtualhome-event-trace { width: 238px; position: absolute; z-index: 4; right: 6%; bottom: 8%; padding: 15px; opacity: 0; transform: translateY(14px); color: #85918d; border: 1px solid rgba(197, 255, 61, 0.28); background: rgba(10, 17, 18, 0.88); backdrop-filter: blur(12px); transition: opacity 320ms ease, transform 320ms ease; pointer-events: none; }
+.virtualhome-event-trace.is-visible { opacity: 1; transform: translateY(0); }
+.virtualhome-event-trace > span { display: block; margin-bottom: 12px; color: var(--accent); font-size: 8px; letter-spacing: 0.09em; }
+.virtualhome-event-trace ol { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.virtualhome-event-trace li { display: grid; grid-template-columns: 58px minmax(0, 1fr); gap: 2px 8px; padding-top: 9px; border-top: 1px solid #303a38; }
+.virtualhome-event-trace time { grid-row: 1 / span 2; color: #65716d; font-size: 8px; }
+.virtualhome-event-trace strong { color: #c8cfca; font-size: 9px; font-weight: 400; }
+.virtualhome-event-trace small { color: #71817b; font-size: 8px; }
+.virtualhome-project-statement { display: grid; grid-template-columns: minmax(160px, 0.32fr) minmax(0, 1fr); gap: 48px; padding: clamp(72px, 9vw, 124px) 0; border-top: 1px solid var(--line); }
+.virtualhome-project-statement h2 { max-width: 980px; margin: -9px 0 30px; font-size: clamp(38px, 5vw, 72px); font-weight: 400; line-height: 1.08; letter-spacing: -0.04em; }
+.virtualhome-project-statement div > p { max-width: 790px; color: var(--muted); font-family: "IBM Plex Sans", Arial, sans-serif; font-size: 18px; line-height: 1.75; }
+.virtualhome-capabilities { padding: clamp(72px, 9vw, 120px) 0; border-top: 1px solid var(--line); }
+.virtualhome-section-heading { display: grid; grid-template-columns: minmax(160px, 0.32fr) minmax(0, 1fr); gap: 48px; margin-bottom: 56px; }
+.virtualhome-section-heading h2 { max-width: 820px; margin: -8px 0 0; font-size: clamp(34px, 4vw, 58px); font-weight: 400; line-height: 1.12; letter-spacing: -0.035em; }
+.virtualhome-capability-list { border-top: 1px solid var(--line); }
+.virtualhome-capability { min-height: 150px; display: grid; grid-template-columns: 64px 52px minmax(190px, 0.72fr) minmax(260px, 1fr); align-items: center; gap: 22px; border-bottom: 1px solid var(--line); }
+.virtualhome-capability-index { align-self: start; padding-top: 30px; color: var(--accent); font-size: 11px; }
+.virtualhome-capability > svg { color: var(--accent); }
+.virtualhome-capability h3 { margin: 0; font-size: 24px; font-weight: 400; }
+.virtualhome-capability p { margin: 0; color: var(--muted); font-family: "IBM Plex Sans", Arial, sans-serif; line-height: 1.65; }
+.virtualhome-system-map { display: grid; grid-template-columns: minmax(260px, 0.62fr) minmax(0, 1fr); gap: clamp(48px, 7vw, 100px); padding: clamp(72px, 9vw, 116px) 0 28px; border-top: 1px solid var(--line); }
+.virtualhome-system-map h2 { max-width: 470px; margin: 16px 0 0; font-size: clamp(34px, 4vw, 54px); font-weight: 400; line-height: 1.08; letter-spacing: -0.035em; }
+.virtualhome-system-map ol { margin: 0; padding: 0; border-top: 1px solid var(--line); list-style: none; }
+.virtualhome-system-map li { min-height: 86px; display: grid; grid-template-columns: 44px minmax(170px, 0.7fr) 1fr; align-items: center; gap: 16px; border-bottom: 1px solid var(--line); }
+.virtualhome-system-map li > span { color: var(--accent); font-size: 11px; }
+.virtualhome-system-map strong { font-size: 17px; font-weight: 400; }
+.virtualhome-system-map small { color: var(--muted); font-family: "IBM Plex Sans", Arial, sans-serif; font-size: 14px; }
 .docs-index { display: grid; grid-template-columns: 280px 1fr; gap: 70px; }
 .docs-index aside { padding-right: 30px; border-right: 1px solid var(--line); }
 .docs-index aside h2 { margin: 14px 0; font-size: 31px; font-weight: 400; }
@@ -252,6 +338,10 @@ button { color: inherit; }
   .docs-index aside { padding: 0 0 24px; border-right: 0; border-bottom: 1px solid var(--line); }
   .tinybot-project-hero { grid-template-columns: minmax(0, 1fr) 320px; gap: 46px; }
   .tinybot-capability { grid-template-columns: 52px 44px minmax(170px, 0.72fr) minmax(220px, 1fr); gap: 16px; }
+  .virtualhome-project-hero { grid-template-columns: minmax(0, 1fr) 320px; gap: 46px; }
+  .virtualhome-capability { grid-template-columns: 52px 44px minmax(170px, 0.72fr) minmax(220px, 1fr); gap: 16px; }
+  .virtualhome-stage-copy { width: 32%; }
+  .virtualhome-scene { left: 24%; }
   .article-layout { grid-template-columns: 200px minmax(0, 1fr); gap: 45px; }
   .article-layout-single { grid-template-columns: minmax(0, 760px); }
 }
@@ -342,6 +432,41 @@ button { color: inherit; }
   .tinybot-capability p { grid-column: 3; margin-top: -2px; font-size: 15px; }
   .tinybot-system-map { grid-template-columns: 1fr; }
   .tinybot-system-map li { grid-template-columns: 36px minmax(130px, 0.8fr) 1fr; }
+  .virtualhome-project-page { padding-top: 42px; }
+  .virtualhome-project-hero { min-height: 0; grid-template-columns: 1fr; gap: 62px; padding-bottom: 74px; }
+  .virtualhome-project-intro h1 { font-size: clamp(54px, 19vw, 80px); }
+  .virtualhome-project-actions { align-items: stretch; flex-direction: column; gap: 24px; }
+  .virtualhome-project-actions .text-link { align-self: flex-start; }
+  .virtualhome-runtime-panel { width: 100%; }
+  .virtualhome-brand { gap: 16px; padding: 22px 18px; }
+  .virtualhome-brand > span { width: 76px; height: 76px; }
+  .virtualhome-scroll-section { height: auto; margin-inline: 0; }
+  .virtualhome-scroll-stage { height: auto; min-height: 1040px; position: relative; top: auto; overflow: hidden; }
+  .virtualhome-sim-header { grid-template-columns: 1fr auto; padding-inline: 14px; }
+  .virtualhome-sim-header span:nth-child(2) { display: none; }
+  .virtualhome-stage-copy { width: auto; position: relative; top: auto; left: auto; padding: 46px 0 0; }
+  .virtualhome-stage-copy h2 { font-size: clamp(34px, 10vw, 46px); }
+  .virtualhome-scene { height: 500px; position: relative; top: auto; right: auto; bottom: auto; left: auto; margin: 20px -18vw 0 -22vw; }
+  .virtualhome-scene-reticle { inset: 7% 18%; }
+  .virtualhome-stage-rail { width: 100%; grid-template-columns: 1fr 1fr; position: relative; bottom: auto; left: auto; margin-top: -12px; }
+  .virtualhome-stage-rail li { padding-right: 6px; }
+  .virtualhome-stage-rail li:nth-child(2) { border-top: 1px solid #394340; }
+  .virtualhome-stage-rail li.is-active { background: transparent; }
+  .virtualhome-live-readout { grid-template-columns: 1fr; position: relative; right: auto; bottom: auto; left: auto; margin-top: 24px; }
+  .virtualhome-live-readout > div { border-right: 0; border-bottom: 1px solid #35403d; }
+  .virtualhome-live-readout > div:last-child { border-bottom: 0; }
+  .virtualhome-scroll-hint { display: none; }
+  .virtualhome-project-statement { display: block; padding: 72px 0; }
+  .virtualhome-project-statement h2 { margin-top: 18px; font-size: clamp(36px, 10.5vw, 52px); }
+  .virtualhome-project-statement div > p { font-size: 17px; }
+  .virtualhome-section-heading { display: block; margin-bottom: 38px; }
+  .virtualhome-section-heading h2 { margin-top: 18px; }
+  .virtualhome-capability { min-height: 0; grid-template-columns: 36px 32px minmax(0, 1fr); gap: 14px; padding: 26px 0; }
+  .virtualhome-capability-index { padding-top: 5px; }
+  .virtualhome-capability h3 { font-size: 21px; }
+  .virtualhome-capability p { grid-column: 3; margin-top: -2px; font-size: 15px; }
+  .virtualhome-system-map { grid-template-columns: 1fr; }
+  .virtualhome-system-map li { grid-template-columns: 36px minmax(130px, 0.8fr) 1fr; }
   .article-layout { display: block; padding: 50px 0 80px; }
   .article-nav { position: static; margin-bottom: 55px; padding: 0 0 25px; border-right: 0; border-bottom: 1px solid var(--line); }
   .article > h1 { font-size: 42px; }
@@ -364,4 +489,7 @@ button { color: inherit; }
   .tinybot-tinyos-panel { opacity: 1; visibility: visible; transform: none; }
   .tinybot-workbench-header, .tinybot-workbench-welcome, .tinybot-morph-prompt, .tinybot-morph-toolbar { opacity: 1; transform: none; }
   .tinybot-morph-intro, .tinybot-morph-compact-hint, .tinybot-morph-signals, .tinybot-morph-captions { display: none; }
+  .virtualhome-scroll-section { height: auto; margin-inline: 0; }
+  .virtualhome-scroll-stage { height: 820px; min-height: 0; position: relative; top: auto; }
+  .virtualhome-scroll-hint { display: none; }
 }
