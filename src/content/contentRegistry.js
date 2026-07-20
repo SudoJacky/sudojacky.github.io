@@ -4,29 +4,27 @@ import architecture from "./docs/virtualhome/architecture.md?raw";
 import dataAndSync from "./docs/virtualhome/data-and-sync.md?raw";
 import gettingStarted from "./docs/virtualhome/getting-started.md?raw";
 import introduction from "./docs/virtualhome/introduction.md?raw";
-import buildingInPublic from "./notes/building-in-public.md?raw";
+import agentConversationCompaction from "./notes/agent-conversation-compaction.md?raw";
+import fromPromptToAutonomousLoop from "./notes/from-prompt-to-autonomous-loop.md?raw";
 
 // Add `component: lazy(() => import("..."))` when an entry needs a fully
 // custom page. Entries without one continue to use the shared page template.
 export const notes = [
   {
-    slug: "building-in-public",
-    date: "2026-07-16",
-    title: "Building software that explains itself",
-    summary: "Why documentation, observability, and clear boundaries belong in the product—not in an afterthought.",
-    body: buildingInPublic,
+    slug: "from-prompt-to-autonomous-loop",
+    date: "2026-07-20",
+    title: "从 Prompt 到 Loop，Agent 工程到底在工程什么？",
+    summary: "当一次回答变成一段工作，再变成无人盯守的持续执行，工程重心怎样移到上下文、运行环境和反馈闭环。",
+    body: fromPromptToAutonomousLoop,
+    component: lazy(() => import("../pages/notes/FromPromptToAutonomousLoopPage")),
   },
   {
-    slug: "boring-architecture",
-    date: "2026-07-08",
-    title: "Boring architecture is a feature",
-    summary: "A practical case for small modules, explicit contracts, and fewer invisible decisions.",
-  },
-  {
-    slug: "debuggable-by-design",
-    date: "2026-06-29",
-    title: "Debuggable by design",
-    summary: "Tracing failures through a system without hiding the evidence that makes them solvable.",
+    slug: "agent-conversation-compaction",
+    date: "2026-07-20",
+    title: "会话压缩之后，Agent 还记得什么？",
+    summary: "上下文快满时，Agent 会怎样删掉过去，又怎样避免把用户的原话一起删没。",
+    body: agentConversationCompaction,
+    component: lazy(() => import("../pages/notes/AgentConversationCompactionPage")),
   },
 ];
 
