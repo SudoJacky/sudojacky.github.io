@@ -3,8 +3,8 @@ import {
   Line,
   RoundedBox,
 } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import {
   MathUtils,
   RepeatWrapping,
@@ -1608,7 +1608,6 @@ function SensorBeacon({ delay = 0, position }) {
         <sphereGeometry args={[0.07, 12, 8]} />
         <meshBasicMaterial color="#b9ffff" />
       </mesh>
-      <pointLight color="#3ce8eb" distance={2.4} intensity={2.6} />
     </group>
   );
 }
@@ -2050,6 +2049,11 @@ function AnimatedHouse({ progressRef, staticProgress }) {
     setGroupMaterialState(shellRef.current, focus, 0.04, false);
 
     const activationScale = Math.max(0.001, activate);
+    roofRef.current.visible = focus < 0.995;
+    upperRef.current.visible = focus < 0.995;
+    residentsRef.current.visible = activate > 0.01;
+    sensorsRef.current.visible = sensors > 0.01;
+    dynamicsRef.current.visible = dynamics > 0.01;
     residentsRef.current.scale.setScalar(activationScale);
     sensorsRef.current.scale.setScalar(Math.max(0.001, sensors));
     dynamicsRef.current.scale.setScalar(Math.max(0.001, dynamics));
@@ -2095,9 +2099,53 @@ function AnimatedHouse({ progressRef, staticProgress }) {
   );
 }
 
-function Scene({ progressRef, staticProgress }) {
+function RenderScheduler({ animateSignals, renderSceneRef }) {
+  const gl = useThree((state) => state.gl);
+  const invalidate = useThree((state) => state.invalidate);
+
+  useLayoutEffect(() => {
+    gl.shadowMap.autoUpdate = false;
+    gl.shadowMap.needsUpdate = true;
+
+    const renderScene = ({ updateShadows = false } = {}) => {
+      if (updateShadows) gl.shadowMap.needsUpdate = true;
+      invalidate();
+    };
+
+    renderSceneRef.current = renderScene;
+    invalidate();
+
+    return () => {
+      if (renderSceneRef.current === renderScene) {
+        renderSceneRef.current = null;
+      }
+    };
+  }, [gl, invalidate, renderSceneRef]);
+
+  useEffect(() => {
+    if (!animateSignals) return undefined;
+
+    invalidate();
+    const interval = window.setInterval(invalidate, 1000 / 30);
+
+    return () => window.clearInterval(interval);
+  }, [animateSignals, invalidate]);
+
+  return null;
+}
+
+function Scene({
+  animateSignals,
+  progressRef,
+  renderSceneRef,
+  staticProgress,
+}) {
   return (
     <>
+      <RenderScheduler
+        animateSignals={animateSignals}
+        renderSceneRef={renderSceneRef}
+      />
       <color attach="background" args={["#0b1113"]} />
       <fog attach="fog" args={["#0b1113", 17, 34]} />
       <ambientLight color="#f7dec2" intensity={0.3} />
@@ -2108,7 +2156,7 @@ function Scene({ progressRef, staticProgress }) {
         intensity={1.92}
         position={[8, 13, 9]}
         shadow-bias={-0.0004}
-        shadow-mapSize={[2048, 2048]}
+        shadow-mapSize={[1024, 1024]}
       />
       <directionalLight color="#806b57" intensity={0.52} position={[-8, 7, -6]} />
       <AnimatedHouse progressRef={progressRef} staticProgress={staticProgress} />
@@ -2117,19 +2165,27 @@ function Scene({ progressRef, staticProgress }) {
 }
 
 export default function VirtualHomeHouseScene({
+  animateSignals = false,
   progressRef,
+  renderSceneRef,
   staticProgress = 0,
 }) {
   return (
     <Canvas
       aria-label="Interactive three-dimensional model of the complete VirtualHome residence"
       camera={{ far: 80, near: 0.1, position: [12.8, 13.2, 15.4], zoom: 56 }}
-      dpr={[1, 1.5]}
+      dpr={[1, 1.25]}
+      frameloop="demand"
       gl={{ alpha: false, antialias: true, powerPreference: "high-performance" }}
       orthographic
       shadows
     >
-      <Scene progressRef={progressRef} staticProgress={staticProgress} />
+      <Scene
+        animateSignals={animateSignals}
+        progressRef={progressRef}
+        renderSceneRef={renderSceneRef}
+        staticProgress={staticProgress}
+      />
     </Canvas>
   );
 }

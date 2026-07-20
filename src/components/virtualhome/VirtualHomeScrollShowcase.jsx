@@ -72,8 +72,10 @@ const stageForProgress = (progress) => {
 export default function VirtualHomeScrollShowcase() {
   const sectionRef = useRef(null);
   const progressRef = useRef(0);
+  const renderSceneRef = useRef(null);
   const stageRef = useRef(0);
   const [activeStage, setActiveStage] = useState(0);
+  const [sceneVisible, setSceneVisible] = useState(false);
 
   useLayoutEffect(() => {
     const desktop = window.matchMedia("(min-width: 721px)");
@@ -83,6 +85,8 @@ export default function VirtualHomeScrollShowcase() {
       progressRef.current = 0.88;
       stageRef.current = 5;
       setActiveStage(5);
+      setSceneVisible(true);
+      renderSceneRef.current?.({ updateShadows: true });
       return undefined;
     }
 
@@ -91,8 +95,15 @@ export default function VirtualHomeScrollShowcase() {
       start: "top top+=82",
       end: "bottom bottom",
       invalidateOnRefresh: true,
+      onToggle: ({ isActive }) => {
+        setSceneVisible(isActive);
+        if (isActive) {
+          renderSceneRef.current?.({ updateShadows: true });
+        }
+      },
       onUpdate: ({ progress }) => {
         progressRef.current = progress;
+        renderSceneRef.current?.({ updateShadows: true });
         const nextStage = stageForProgress(progress);
 
         if (nextStage !== stageRef.current) {
@@ -135,7 +146,11 @@ export default function VirtualHomeScrollShowcase() {
         </div>
 
         <div className="virtualhome-scene" aria-label="Scroll-driven three-dimensional home model">
-          <VirtualHomeHouseScene progressRef={progressRef} />
+          <VirtualHomeHouseScene
+            animateSignals={sceneVisible && activeStage >= 4}
+            progressRef={progressRef}
+            renderSceneRef={renderSceneRef}
+          />
           <aside
             className={`virtualhome-event-trace ${activeStage === 5 ? "is-visible" : ""}`}
             aria-hidden={activeStage !== 5}
