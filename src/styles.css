@@ -21,6 +21,7 @@ button, a { font: inherit; }
 a { color: inherit; text-decoration: none; }
 button { color: inherit; }
 ::selection { color: #0b100f; background: var(--accent); }
+.sr-only { width: 1px; height: 1px; position: absolute; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
 
 .site-shell { width: min(100%, 1600px); min-height: 100vh; margin: 0 auto; padding: 0 var(--page-pad); }
 .site-header { height: 82px; display: flex; align-items: center; justify-content: space-between; position: sticky; z-index: 20; top: 0; border-bottom: 1px solid var(--line); background: var(--bg); }
@@ -78,6 +79,18 @@ button { color: inherit; }
 .page-intro { max-width: 950px; margin-bottom: 64px; }
 .page-intro h1 { margin: 16px 0 22px; font-size: clamp(45px, 5.5vw, 82px); font-weight: 400; line-height: 1.08; letter-spacing: -0.03em; }
 .page-intro > p:last-child { max-width: 720px; color: var(--muted); font-family: "IBM Plex Sans", Arial, sans-serif; font-size: 20px; line-height: 1.55; }
+.note-search { margin-bottom: 34px; }
+.note-search-field { min-height: 62px; display: grid; grid-template-columns: 28px minmax(0, 1fr) 36px; align-items: center; gap: 14px; padding: 0 16px; border: 1px solid var(--line); background: rgba(21, 28, 27, 0.42); transition: border-color 160ms ease, background 160ms ease; }
+.note-search-field:focus-within { border-color: var(--accent); background: var(--accent-soft); }
+.note-search-field > svg { color: var(--accent); }
+.note-search-field input { width: 100%; min-width: 0; padding: 18px 0; color: var(--text); border: 0; outline: 0; background: transparent; font: inherit; font-size: 16px; }
+.note-search-field input::placeholder { color: #7f8480; opacity: 1; }
+.note-search-field input::-webkit-search-cancel-button { display: none; }
+.note-search-field button { width: 36px; height: 36px; display: grid; place-items: center; padding: 0; cursor: pointer; border: 0; background: transparent; color: var(--muted); }
+.note-search-field button:hover, .note-search-field button:focus-visible { color: var(--accent); }
+.note-search-field button:focus-visible { outline: 1px solid var(--accent); outline-offset: 0; }
+.note-search-meta { min-height: 32px; display: flex; justify-content: space-between; gap: 20px; padding-top: 11px; color: var(--muted); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; }
+.note-search-meta span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .index-list { border-top: 1px solid var(--line); }
 .index-row { min-height: 155px; display: grid; grid-template-columns: 90px 1fr 36px; align-items: center; gap: 28px; border-bottom: 1px solid var(--line); }
 .index-row:hover h2 { color: var(--accent); }
@@ -85,6 +98,12 @@ button { color: inherit; }
 .index-row time { color: var(--muted); font-size: 12px; }
 .index-row h2 { margin: 8px 0; font-size: 24px; font-weight: 500; }
 .index-row p { margin: 0; color: var(--muted); font-family: "IBM Plex Sans", Arial, sans-serif; }
+.index-row mark { padding: 0; color: var(--accent); background: transparent; }
+.note-search-empty { min-height: 280px; display: flex; align-items: flex-start; flex-direction: column; justify-content: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.note-search-empty > span { color: var(--accent); font-size: 11px; letter-spacing: 0.08em; }
+.note-search-empty h2 { margin: 14px 0 10px; font-size: 30px; font-weight: 400; }
+.note-search-empty p { margin: 0; color: var(--muted); font-family: "IBM Plex Sans", Arial, sans-serif; }
+.note-search-empty button { margin-top: 30px; padding: 0 0 5px; cursor: pointer; color: var(--accent); border: 0; border-bottom: 1px solid var(--accent); background: transparent; font-size: 11px; letter-spacing: 0.07em; }
 .project-list { display: grid; gap: 18px; }
 .project-row { min-height: 260px; display: grid; grid-template-columns: 75px 1fr 180px 40px; align-items: center; gap: 28px; padding: 36px 22px; border: 1px solid rgba(197, 255, 61, 0.45); background: var(--accent-soft); }
 .project-index { align-self: start; color: var(--accent); }
@@ -379,9 +398,16 @@ button { color: inherit; }
   .interior-page { padding: 50px 0 75px; }
   .page-intro { margin-bottom: 45px; }
   .page-intro > p:last-child { font-size: 17px; }
+  .note-search { margin-bottom: 26px; }
+  .note-search-field { min-height: 56px; grid-template-columns: 24px minmax(0, 1fr) 32px; gap: 10px; padding: 0 12px; }
+  .note-search-field input { padding-block: 16px; font-size: 14px; }
+  .note-search-meta { min-height: 27px; padding-top: 9px; }
+  .note-search-meta span:last-child { display: none; }
   .index-row { grid-template-columns: 40px 1fr 24px; gap: 14px; }
   .index-row p { display: none; }
   .index-row h2 { font-size: 18px; }
+  .note-search-empty { min-height: 240px; }
+  .note-search-empty h2 { font-size: 25px; }
   .project-row { grid-template-columns: 38px 1fr 26px; }
   .project-stack { display: none; }
   .project-row h2 { font-size: 36px; }
