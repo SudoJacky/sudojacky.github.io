@@ -22,5 +22,13 @@ export default function NotePage() {
 
   if (!note.body) return <NotFoundPage />;
 
-  return <ArticleLayout label="NOTE" title={note.title} meta={note.date} body={note.body} />;
+  return (
+    <ArticleLayout
+      body={note.body}
+      label="NOTE"
+      meta={note.date}
+      showToc
+      title={note.title}
+    />
+  );
 }

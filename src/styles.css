@@ -306,6 +306,8 @@ button { color: inherit; }
 
 .article-layout { min-height: calc(100vh - 163px); display: grid; grid-template-columns: 250px minmax(0, 760px); justify-content: center; gap: 84px; padding: 70px 28px 110px; }
 .article-layout-single { grid-template-columns: minmax(0, 760px); }
+.article-layout-toc { display: block; padding-inline: var(--page-pad); }
+.article-layout-toc .markdown-article-layout--embedded { width: min(100%, 1120px); }
 .article-nav { position: sticky; top: 40px; height: max-content; display: flex; flex-direction: column; gap: 13px; padding-right: 28px; border-right: 1px solid var(--line); }
 .article-nav .back-link { margin-bottom: 22px; color: var(--muted); font-size: 12px; }
 .article-nav a:not(.back-link) { color: var(--muted); font-size: 13px; }
