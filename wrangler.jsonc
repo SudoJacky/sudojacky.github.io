@@ -1,0 +1,16 @@
+{
+	"name": "sudojacky-visit-counter",
+	"main": "worker/index.js",
+	"compatibility_date": "2026-07-23",
+	"vars": {
+		"ALLOWED_ORIGINS": "https://sudojacky.github.io,http://localhost:5173"
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "sudojacky-visit-counter",
+			"database_id": "f708f4bb-de4f-4bf5-a96c-9d088fed2298",
+			"migrations_dir": "worker/migrations"
+		}
+	]
+}
