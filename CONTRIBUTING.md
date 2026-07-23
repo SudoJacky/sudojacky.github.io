@@ -15,6 +15,31 @@ npm run dev
 npm run build
 ```
 
+## 本地访问计数器
+
+访问计数器由 Cloudflare Worker 和 D1 提供。首次运行本地 Worker 前初始化数据库：
+
+```bash
+npm run counter:migrate:local
+npm run counter:dev
+```
+
+在另一个终端为 Vite 配置本地 Worker 地址：
+
+```powershell
+$env:VITE_VISIT_COUNTER_URL="http://localhost:8787"
+npm run dev
+```
+
+生产构建从 GitHub Actions 仓库变量 `VITE_VISIT_COUNTER_URL` 读取已部署的 Worker 地址。
+
+首次部署时：
+
+1. 运行 `npm run counter:login` 登录 Cloudflare。
+2. 运行 `npm run counter:create` 创建 D1，并将返回的 `database_id` 写入 `wrangler.jsonc`。
+3. 运行 `npm run counter:migrate:remote` 和 `npm run counter:deploy`。
+4. 将 Worker 地址保存为 GitHub Actions 仓库变量 `VITE_VISIT_COUNTER_URL`。
+
 ## 目录职责
 
 ```text
@@ -29,6 +54,9 @@ src/
 ├── router/              # 路由映射
 ├── App.jsx              # 应用根组件
 └── main.jsx             # 浏览器入口
+worker/
+├── migrations/          # D1 数据库迁移
+└── index.js             # 访问计数 Worker
 ```
 
 - 不要为了匹配模板而创建空目录。只有出现真实的共享状态或工具函数时，才增加 `store/` 或 `utils/`。

@@ -29,6 +29,8 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+        env:
+          VITE_VISIT_COUNTER_URL: ${{ vars.VITE_VISIT_COUNTER_URL }}
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

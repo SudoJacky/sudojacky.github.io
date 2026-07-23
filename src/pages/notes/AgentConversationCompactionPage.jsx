@@ -75,13 +75,42 @@ const comparisonRows = [
   ["更看重什么", "压缩率", "用户原话"],
 ];
 
+const recoveryStages = [
+  {
+    number: "01",
+    label: "HANDOFF",
+    title: "把检查点交给一个没看过历史的 Agent。",
+    copy: "它只拿到压缩结果和当前工作区。原会话不会回来替它补充说明。",
+  },
+  {
+    number: "02",
+    label: "SUMMARY ONLY",
+    title: "A 轨把一句硬约束写软了。",
+    copy: "摘要里的“优先复用”听起来像建议。新 Agent 于是把重写存储层重新列为可选方案。",
+  },
+  {
+    number: "03",
+    label: "SUMMARY + USER",
+    title: "B 轨还能看到用户当时的原话。",
+    copy: "“保持现有架构，只修改恢复流程”仍在上下文里。这个方案刚出现就被挡了下来。",
+  },
+  {
+    number: "04",
+    label: "RECOVERY COST",
+    title: "遗漏最后会变成返工。",
+    copy: "两份压缩结果都很短。真正拉开差距的，是新 Agent 要走多少弯路才能回到正确位置。",
+  },
+];
+
 export default function AgentConversationCompactionPage({ note }) {
   const pageRef = useRef(null);
   const labRef = useRef(null);
+  const recoveryRef = useRef(null);
 
   useLayoutEffect(() => {
     const page = pageRef.current;
     const lab = labRef.current;
+    const recovery = recoveryRef.current;
     const media = gsap.matchMedia();
 
     media.add("(prefers-reduced-motion: no-preference)", () => {
@@ -231,6 +260,47 @@ export default function AgentConversationCompactionPage({ note }) {
           }, 2.05)
           .to(progress, { scaleX: 1, duration: 0.4 }, 2.15);
 
+        const recoveryCaptions = gsap.utils.toArray(".compaction-recovery-copy", recovery);
+        const pathA = recovery.querySelector(".is-path-a");
+        const pathB = recovery.querySelector(".is-path-b");
+        const pathAItems = pathA.querySelectorAll("[data-recovery-item]");
+        const pathBItems = pathB.querySelectorAll("[data-recovery-item]");
+        const recoveryScore = recovery.querySelector(".compaction-recovery-score");
+        const recoveryProgress = recovery.querySelector(".compaction-recovery-progress-fill");
+
+        gsap.set(recoveryCaptions.slice(1), { autoAlpha: 0, y: 24 });
+        gsap.set([...pathAItems, ...pathBItems], { autoAlpha: 0, y: 14 });
+        gsap.set(recoveryScore, { autoAlpha: 0, y: 16 });
+        gsap.set(recoveryProgress, { scaleX: 0.08, transformOrigin: "left center" });
+
+        gsap.timeline({
+          defaults: { ease: "none" },
+          scrollTrigger: {
+            trigger: recovery,
+            start: "top top+=82",
+            end: "bottom bottom",
+            scrub: 0.45,
+            invalidateOnRefresh: true,
+          },
+        })
+          .to(recoveryProgress, { scaleX: 0.3, duration: 0.4 }, 0)
+          .to(recoveryCaptions[0], { autoAlpha: 0, y: -20, duration: 0.18 }, 0.3)
+          .to(recoveryCaptions[1], { autoAlpha: 1, y: 0, duration: 0.18 }, 0.44)
+          .to(pathB, { autoAlpha: 0.24, duration: 0.22 }, 0.38)
+          .to(pathAItems, { autoAlpha: 1, y: 0, stagger: 0.11, duration: 0.34 }, 0.48)
+          .to(recoveryProgress, { scaleX: 0.56, duration: 0.4 }, 0.72)
+          .to(recoveryCaptions[1], { autoAlpha: 0, y: -20, duration: 0.18 }, 1)
+          .to(recoveryCaptions[2], { autoAlpha: 1, y: 0, duration: 0.18 }, 1.14)
+          .to(pathA, { autoAlpha: 0.42, duration: 0.22 }, 1.08)
+          .to(pathB, { autoAlpha: 1, duration: 0.22 }, 1.08)
+          .to(pathBItems, { autoAlpha: 1, y: 0, stagger: 0.11, duration: 0.34 }, 1.18)
+          .to(recoveryProgress, { scaleX: 0.82, duration: 0.4 }, 1.42)
+          .to(recoveryCaptions[2], { autoAlpha: 0, y: -20, duration: 0.18 }, 1.72)
+          .to(recoveryCaptions[3], { autoAlpha: 1, y: 0, duration: 0.18 }, 1.86)
+          .to([pathA, pathB], { autoAlpha: 1, duration: 0.25 }, 1.82)
+          .to(recoveryScore, { autoAlpha: 1, y: 0, duration: 0.35 }, 1.94)
+          .to(recoveryProgress, { scaleX: 1, duration: 0.35 }, 2.02);
+
         return undefined;
       },
     );
@@ -374,6 +444,79 @@ export default function AgentConversationCompactionPage({ note }) {
             {comparisonRows.map(([dimension, methodA, methodB]) => (
               <div key={dimension}><span>{dimension}</span><span>{methodA}</span><span>{methodB}</span></div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="compaction-recovery"
+        ref={recoveryRef}
+        aria-labelledby="compaction-recovery-title"
+      >
+        <div className="compaction-recovery-stage">
+          <header className="compaction-recovery-header">
+            <span id="compaction-recovery-title">BLIND RECOVERY TEST / NEW AGENT</span>
+            <span><i />NO ORIGINAL TRANSCRIPT</span>
+          </header>
+
+          <div className="compaction-recovery-layout">
+            <div className="compaction-recovery-narrative">
+              {recoveryStages.map((stage) => (
+                <article className="compaction-recovery-copy" key={stage.number}>
+                  <p>{stage.number} / {stage.label}</p>
+                  <h2>{stage.title}</h2>
+                  <span>{stage.copy}</span>
+                </article>
+              ))}
+            </div>
+
+            <div className="compaction-recovery-console" aria-hidden="true">
+              <header>
+                <span>CHECKPOINT LOADED</span>
+                <span>RECOVERY RUN 01</span>
+              </header>
+
+              <div className="compaction-recovery-paths">
+                <article className="compaction-recovery-path is-path-a">
+                  <header><span>A</span>SUMMARY ONLY</header>
+                  <div data-recovery-item>
+                    <small>RECEIVED CONSTRAINT</small>
+                    <p>优先复用现有架构</p>
+                  </div>
+                  <div className="compaction-recovery-action" data-recovery-item>
+                    <small>AGENT ACTION</small>
+                    <strong>评估重写存储层</strong>
+                  </div>
+                  <footer className="is-failed" data-recovery-item>
+                    CONSTRAINT DRIFT / REWORK REQUIRED
+                  </footer>
+                </article>
+
+                <article className="compaction-recovery-path is-path-b">
+                  <header><span>B</span>SUMMARY + USER</header>
+                  <div data-recovery-item>
+                    <small>ORIGINAL USER MESSAGE</small>
+                    <p>保持现有架构，只修改会话恢复流程。</p>
+                  </div>
+                  <div className="compaction-recovery-action" data-recovery-item>
+                    <small>AGENT ACTION</small>
+                    <strong>局部修复检查点生成</strong>
+                  </div>
+                  <footer className="is-passed" data-recovery-item>
+                    CONSTRAINT HELD / CONTINUE
+                  </footer>
+                </article>
+              </div>
+
+              <div className="compaction-recovery-score">
+                <span>RESUME FROM CORRECT STATE</span>
+                <strong><i>A / RETRY</i><i>B / CONTINUE</i></strong>
+              </div>
+            </div>
+          </div>
+
+          <div className="compaction-recovery-progress" aria-hidden="true">
+            <span className="compaction-recovery-progress-fill" />
           </div>
         </div>
       </section>
