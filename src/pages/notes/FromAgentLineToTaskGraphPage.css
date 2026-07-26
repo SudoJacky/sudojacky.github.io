@@ -1,0 +1,855 @@
+.task-graph-note {
+  margin-inline: calc(-1 * var(--page-pad));
+  overflow: clip;
+}
+
+.task-graph-hero {
+  min-height: calc(100svh - 82px);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  position: relative;
+  isolation: isolate;
+  padding: clamp(34px, 5vw, 68px) max(var(--page-pad), 4vw) 30px;
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 76% 44%, rgba(197, 255, 61, 0.1), transparent 24%),
+    linear-gradient(118deg, transparent 0 58%, rgba(197, 255, 61, 0.04) 58% 58.1%, transparent 58.1%),
+    linear-gradient(90deg, rgba(197, 255, 61, 0.04) 1px, transparent 1px),
+    linear-gradient(rgba(197, 255, 61, 0.04) 1px, transparent 1px);
+  background-size: auto, auto, clamp(42px, 5vw, 74px) clamp(42px, 5vw, 74px), clamp(42px, 5vw, 74px) clamp(42px, 5vw, 74px);
+}
+
+.task-graph-hero::before {
+  content: "";
+  width: min(42vw, 640px);
+  aspect-ratio: 1.72;
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  right: 7%;
+  border: 1px solid rgba(197, 255, 61, 0.14);
+  clip-path: polygon(0 47%, 28% 9%, 28% 37%, 63% 37%, 63% 0, 100% 50%, 63% 100%, 63% 63%, 28% 63%, 28% 91%);
+  transform: translateY(-50%);
+}
+
+.task-graph-back-link {
+  width: max-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.task-graph-back-link:hover {
+  color: var(--accent);
+}
+
+.task-graph-hero-copy {
+  align-self: center;
+  width: min(100%, 1280px);
+  padding: clamp(60px, 8vh, 100px) 0;
+}
+
+.task-graph-hero-copy h1 {
+  max-width: 1240px;
+  margin: 20px 0 30px;
+  font-size: clamp(54px, 7vw, 108px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.064em;
+}
+
+.task-graph-hero-copy h1 span {
+  display: block;
+  color: var(--accent);
+}
+
+.task-graph-hero-lede {
+  max-width: 760px;
+  margin: 0;
+  color: #c8cac5;
+  font-family: "IBM Plex Sans", Arial, sans-serif;
+  font-size: clamp(19px, 1.75vw, 25px);
+  line-height: 1.65;
+}
+
+.task-graph-hero-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 24px;
+  padding-top: 22px;
+  color: #7f8986;
+  border-top: 1px solid var(--line);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.task-graph-hero-footer span:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--accent);
+}
+
+.task-graph-experiment {
+  height: 520vh;
+  border-bottom: 1px solid var(--line);
+}
+
+.task-graph-experiment-stage {
+  height: calc(100svh - 82px);
+  min-height: 680px;
+  position: sticky;
+  top: 82px;
+  overflow: hidden;
+  background: #091011;
+}
+
+.task-graph-experiment-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.13;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(197, 255, 61, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(197, 255, 61, 0.14) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: linear-gradient(90deg, #000, transparent 84%);
+}
+
+.task-graph-experiment-header {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 6;
+  padding: 0 max(var(--page-pad), 3.2vw);
+  color: #84908c;
+  border-bottom: 1px solid #303a38;
+  background: rgba(9, 16, 17, 0.9);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.task-graph-stage-markers {
+  display: flex;
+  gap: clamp(10px, 1.5vw, 25px);
+}
+
+.task-graph-stage-marker {
+  color: #55615d;
+}
+
+.task-graph-experiment-layout {
+  height: calc(100% - 52px);
+  display: grid;
+  grid-template-columns: minmax(300px, 0.66fr) minmax(650px, 1.34fr);
+  gap: clamp(38px, 5vw, 80px);
+  position: relative;
+  z-index: 2;
+  padding: 0 max(var(--page-pad), 4vw);
+}
+
+.task-graph-narrative {
+  position: relative;
+}
+
+.task-graph-stage-copy {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.task-graph-stage-copy > p {
+  margin: 0 0 20px;
+  color: var(--accent);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+.task-graph-stage-copy h2 {
+  max-width: 540px;
+  margin: 0 0 24px;
+  font-size: clamp(39px, 4.35vw, 66px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+}
+
+.task-graph-stage-copy > span {
+  max-width: 470px;
+  display: block;
+  color: #9ba4a0;
+  font-family: "IBM Plex Sans", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.72;
+}
+
+.task-graph-workbench {
+  min-width: 0;
+  position: relative;
+  align-self: center;
+  height: min(68vh, 650px);
+  min-height: 520px;
+  border: 1px solid #34403d;
+  background: rgba(10, 17, 18, 0.86);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.26);
+}
+
+.task-graph-workbench-bar {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  color: #798580;
+  border-bottom: 1px solid #313c39;
+  background: #101817;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.task-graph-workbench-bar > div {
+  display: flex;
+  gap: 18px;
+}
+
+.task-graph-workbench-bar > div > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #b7c0bc;
+}
+
+.task-graph-workbench-bar i {
+  width: 6px;
+  height: 6px;
+  display: inline-block;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(197, 255, 61, 0.72);
+}
+
+.task-graph-workbench-bar [data-metric] {
+  display: inline-grid;
+  grid-template-columns: auto 1ch;
+  column-gap: 0.5ch;
+  align-items: center;
+}
+
+.task-graph-workbench-bar [data-metric] b {
+  grid-area: 1 / 2;
+  font-weight: 400;
+}
+
+.task-graph-metric-to {
+  opacity: 0;
+}
+
+.task-graph-canvas {
+  height: calc(100% - 48px);
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(197, 255, 61, 0.045), transparent 34%),
+    linear-gradient(rgba(197, 255, 61, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(197, 255, 61, 0.045) 1px, transparent 1px);
+  background-size: auto, 30px 30px, 30px 30px;
+}
+
+.task-graph-linear-edges,
+.task-graph-network-edges {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.task-graph-linear-edges path,
+.task-graph-network-edges path {
+  fill: none;
+  stroke: rgba(197, 255, 61, 0.55);
+  stroke-width: 0.32;
+  vector-effect: non-scaling-stroke;
+}
+
+.task-graph-linear-edges path {
+  stroke: #5e6965;
+}
+
+.task-graph-linear-edges path:nth-child(2),
+.task-graph-linear-edges path:nth-child(3) {
+  stroke: #76817d;
+}
+
+.task-graph-network-edges--mobile {
+  display: none;
+}
+
+.task-graph-node {
+  width: 116px;
+  min-height: 68px;
+  display: grid;
+  align-content: center;
+  gap: 7px;
+  position: absolute;
+  z-index: 3;
+  padding: 11px 12px;
+  border: 1px solid #46524e;
+  background: #111918;
+  transform: translate(-50%, -50%);
+}
+
+.task-graph-node > span {
+  color: #71807a;
+  font-size: 7px;
+  letter-spacing: 0.09em;
+}
+
+.task-graph-node > strong {
+  color: #d7dbd5;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+.task-graph-node > small {
+  color: var(--accent);
+  font-size: 7px;
+  letter-spacing: 0.04em;
+}
+
+.task-graph-node[data-node="source"] {
+  left: 10%;
+  top: 50%;
+  border-color: rgba(197, 255, 61, 0.58);
+}
+
+.task-graph-node[data-node="security"] {
+  left: 28%;
+  top: 50%;
+}
+
+.task-graph-node[data-node="performance"] {
+  left: 46%;
+  top: 50%;
+}
+
+.task-graph-node[data-node="tests"] {
+  left: 64%;
+  top: 50%;
+}
+
+.task-graph-node[data-node="reduce"] {
+  left: 58%;
+  top: 50%;
+}
+
+.task-graph-node[data-node="verify"] {
+  left: 76%;
+  top: 50%;
+}
+
+.task-graph-node[data-node="report"] {
+  left: 88%;
+  top: 50%;
+}
+
+.task-graph-audit-flag {
+  position: absolute;
+  z-index: 5;
+  top: calc(50% - 62px);
+  padding: 6px 8px;
+  color: #f19c92;
+  border: 1px solid rgba(241, 156, 146, 0.48);
+  background: #171919;
+  font-size: 7px;
+  letter-spacing: 0.07em;
+}
+
+.task-graph-audit-flag-a {
+  left: 34%;
+}
+
+.task-graph-audit-flag-b {
+  left: 52%;
+}
+
+.task-graph-merge-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: absolute;
+  z-index: 4;
+  right: 8%;
+  bottom: 22px;
+  padding: 9px 11px;
+  color: #8e9995;
+  border: 1px solid #33403c;
+  background: rgba(13, 21, 20, 0.94);
+  font-size: 7px;
+  letter-spacing: 0.06em;
+}
+
+.task-graph-merge-status i {
+  width: 20px;
+  height: 1px;
+  background: #485550;
+}
+
+.task-graph-trace {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  position: absolute;
+  z-index: 5;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  padding: 11px 13px;
+  color: var(--accent);
+  border: 1px solid rgba(197, 255, 61, 0.34);
+  background: rgba(15, 24, 22, 0.96);
+  font-size: 8px;
+  letter-spacing: 0.07em;
+}
+
+.task-graph-trace small {
+  margin-left: auto;
+  color: #84908c;
+  font-size: 7px;
+}
+
+.task-graph-progress {
+  height: 4px;
+  position: absolute;
+  z-index: 8;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #202a27;
+}
+
+.task-graph-progress-fill {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: var(--accent);
+}
+
+.task-graph-body {
+  width: 100%;
+  padding: clamp(100px, 12vw, 170px) 0 140px;
+}
+
+.task-graph-body-kicker {
+  margin: 0 0 42px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.task-graph-body h2 {
+  margin: 84px 0 22px;
+  font-size: clamp(31px, 3.4vw, 46px);
+  font-weight: 400;
+  line-height: 1.16;
+  letter-spacing: -0.035em;
+}
+
+.task-graph-body h2:first-of-type {
+  margin-top: 0;
+}
+
+.task-graph-body h3 {
+  margin-top: 42px;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.task-graph-body p,
+.task-graph-body li {
+  color: #c8cac5;
+  font-family: "IBM Plex Sans", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.85;
+}
+
+.task-graph-body li {
+  margin-bottom: 10px;
+}
+
+.task-graph-body a {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: rgba(197, 255, 61, 0.55);
+  text-underline-offset: 4px;
+}
+
+.task-graph-body a:hover {
+  color: var(--accent);
+}
+
+.task-graph-body strong {
+  color: var(--text);
+}
+
+.task-graph-body code {
+  color: var(--accent);
+  font-family: "IBM Plex Mono", Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.task-graph-body pre {
+  overflow-x: auto;
+  margin: 32px 0;
+  padding: 24px;
+  border: 1px solid var(--line);
+  background: #0a0f10;
+}
+
+.task-graph-body blockquote {
+  margin: 46px 0;
+  padding: 8px 0 8px 26px;
+  border-left: 2px solid var(--accent);
+}
+
+.task-graph-body blockquote p {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.55;
+}
+
+@media (max-width: 1180px) {
+  .task-graph-experiment-layout {
+    grid-template-columns: minmax(270px, 0.6fr) minmax(580px, 1.4fr);
+    gap: 30px;
+  }
+
+  .task-graph-stage-copy h2 {
+    font-size: clamp(37px, 4.2vw, 55px);
+  }
+
+  .task-graph-node {
+    width: 104px;
+  }
+
+  .task-graph-workbench-bar > div {
+    gap: 11px;
+  }
+}
+
+@media (max-width: 900px) {
+  .task-graph-hero {
+    min-height: calc(100svh - 82px);
+    padding: 28px var(--page-pad) 24px;
+  }
+
+  .task-graph-hero::before {
+    width: 92vw;
+    right: -38%;
+  }
+
+  .task-graph-hero-copy {
+    padding-block: 58px;
+  }
+
+  .task-graph-hero-copy h1 {
+    font-size: clamp(44px, 12vw, 68px);
+  }
+
+  .task-graph-hero-lede {
+    font-size: 17px;
+  }
+
+  .task-graph-hero-footer {
+    grid-template-columns: 1fr auto;
+  }
+
+  .task-graph-hero-footer span:nth-child(2) {
+    display: none;
+  }
+
+  .task-graph-experiment {
+    height: auto;
+  }
+
+  .task-graph-experiment-stage {
+    height: auto;
+    min-height: 0;
+    position: relative;
+    top: auto;
+    overflow: visible;
+  }
+
+  .task-graph-experiment-header {
+    padding-inline: var(--page-pad);
+  }
+
+  .task-graph-stage-markers {
+    display: none;
+  }
+
+  .task-graph-experiment-layout {
+    height: auto;
+    display: block;
+    padding: 74px var(--page-pad) 90px;
+  }
+
+  .task-graph-narrative {
+    display: grid;
+    gap: 52px;
+  }
+
+  .task-graph-stage-copy {
+    position: relative;
+    top: auto;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+
+  .task-graph-stage-copy h2 {
+    font-size: clamp(34px, 10vw, 48px);
+  }
+
+  .task-graph-workbench {
+    height: auto;
+    min-height: 720px;
+    margin-top: 72px;
+  }
+
+  .task-graph-workbench-bar > div span:not(:first-child) {
+    display: none;
+  }
+
+  .task-graph-canvas {
+    height: 670px;
+  }
+
+  .task-graph-linear-edges,
+  .task-graph-network-edges--desktop {
+    display: none;
+  }
+
+  .task-graph-network-edges--mobile {
+    display: block;
+  }
+
+  .task-graph-network-edges--mobile path {
+    opacity: 1 !important;
+    visibility: visible !important;
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  .task-graph-node {
+    width: 96px !important;
+    min-height: 62px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  .task-graph-node[data-node="source"] {
+    left: 50% !important;
+    top: 8% !important;
+  }
+
+  .task-graph-node[data-node="security"] {
+    left: 18% !important;
+    top: 31% !important;
+  }
+
+  .task-graph-node[data-node="performance"] {
+    left: 50% !important;
+    top: 31% !important;
+  }
+
+  .task-graph-node[data-node="tests"] {
+    left: 82% !important;
+    top: 31% !important;
+  }
+
+  .task-graph-node[data-node="reduce"] {
+    left: 50% !important;
+    top: 55% !important;
+    border-color: #c5ff3d !important;
+    background: rgba(197, 255, 61, 0.08) !important;
+  }
+
+  .task-graph-node[data-node="verify"] {
+    left: 50% !important;
+    top: 74% !important;
+    border-color: #c5ff3d !important;
+    background: rgba(197, 255, 61, 0.08) !important;
+  }
+
+  .task-graph-node[data-node="report"] {
+    width: 114px !important;
+    min-height: 72px !important;
+    left: 50% !important;
+    top: 92% !important;
+    border-color: #c5ff3d !important;
+    background: rgba(197, 255, 61, 0.12) !important;
+  }
+
+  .task-graph-node-result {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+
+  .task-graph-audit-flag,
+  .task-graph-merge-status,
+  .task-graph-trace,
+  .task-graph-progress {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .task-graph-workbench {
+    min-height: 670px;
+  }
+
+  .task-graph-canvas {
+    height: 620px;
+  }
+
+  .task-graph-node {
+    width: 82px !important;
+    padding-inline: 8px;
+  }
+
+  .task-graph-node > strong {
+    font-size: 8px;
+  }
+
+  .task-graph-node > span,
+  .task-graph-node > small {
+    font-size: 6px;
+  }
+}
+
+@media (max-width: 720px) {
+  .task-graph-hero {
+    min-height: calc(100svh - 70px);
+  }
+
+  .task-graph-body {
+    padding: 92px 0 110px;
+  }
+
+  .task-graph-body h2 {
+    margin-top: 68px;
+  }
+
+  .task-graph-body p,
+  .task-graph-body li {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 901px) {
+  .task-graph-experiment {
+    height: auto;
+  }
+
+  .task-graph-experiment-stage {
+    height: auto;
+    min-height: 0;
+    position: relative;
+    top: auto;
+    overflow: visible;
+  }
+
+  .task-graph-stage-markers {
+    display: none;
+  }
+
+  .task-graph-experiment-layout {
+    height: auto;
+    display: block;
+    padding-block: 90px;
+  }
+
+  .task-graph-narrative {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 42px;
+  }
+
+  .task-graph-stage-copy {
+    position: relative;
+    top: auto;
+    transform: none;
+  }
+
+  .task-graph-workbench {
+    height: 620px;
+    margin-top: 72px;
+  }
+
+  .task-graph-linear-edges {
+    display: none;
+  }
+
+  .task-graph-node[data-node="security"] {
+    left: 34%;
+    top: 22%;
+  }
+
+  .task-graph-node[data-node="performance"] {
+    left: 34%;
+    top: 50%;
+  }
+
+  .task-graph-node[data-node="tests"] {
+    left: 34%;
+    top: 78%;
+  }
+
+  .task-graph-node[data-node="report"] {
+    width: 132px;
+    min-height: 86px;
+    left: 90%;
+    border-color: #c5ff3d;
+    background: rgba(197, 255, 61, 0.12);
+  }
+
+  .task-graph-node[data-node="reduce"],
+  .task-graph-node[data-node="verify"] {
+    border-color: #c5ff3d;
+    background: rgba(197, 255, 61, 0.08);
+  }
+
+  .task-graph-audit-flag {
+    display: none;
+  }
+
+  .task-graph-merge-status,
+  .task-graph-trace,
+  .task-graph-node-result {
+    opacity: 1;
+    transform: none;
+  }
+
+  .task-graph-metric-from {
+    display: none !important;
+  }
+
+  .task-graph-metric-to {
+    opacity: 1;
+  }
+}
