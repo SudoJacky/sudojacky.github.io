@@ -5,11 +5,20 @@ import dataAndSync from "./docs/virtualhome/data-and-sync.md?raw";
 import gettingStarted from "./docs/virtualhome/getting-started.md?raw";
 import introduction from "./docs/virtualhome/introduction.md?raw";
 import agentConversationCompaction from "./notes/agent-conversation-compaction.md?raw";
+import fromAgentLineToTaskGraph from "./notes/from-agent-line-to-task-graph.md?raw";
 import fromPromptToAutonomousLoop from "./notes/from-prompt-to-autonomous-loop.md?raw";
 
 // Add `component: lazy(() => import("..."))` when an entry needs a fully
 // custom page. Entries without one continue to use the shared page template.
 export const notes = [
+  {
+    slug: "from-agent-line-to-task-graph",
+    date: "2026-07-25",
+    title: "当 Agent 不再排队：从线性流程到任务图",
+    summary: "多步骤 Agent 的瓶颈常常不是模型，而是把没有依赖的工作排成一条线。怎样用节点、边、汇合、路由和验证重新组织任务。",
+    body: fromAgentLineToTaskGraph,
+    component: lazy(() => import("../pages/notes/FromAgentLineToTaskGraphPage")),
+  },
   {
     slug: "from-prompt-to-autonomous-loop",
     date: "2026-07-20",
