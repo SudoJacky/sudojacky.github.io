@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import tinybotAgentLoopPersistence from "./docs/tinybot/agent-loop-persistence.md?raw";
 import apiReference from "./docs/virtualhome/api-reference.md?raw";
 import architecture from "./docs/virtualhome/architecture.md?raw";
 import dataAndSync from "./docs/virtualhome/data-and-sync.md?raw";
@@ -56,10 +57,54 @@ export const projects = [
   },
 ];
 
-export const docs = [
-  { slug: "introduction", title: "Introduction", summary: "Overview and goals", body: introduction },
-  { slug: "getting-started", title: "Getting Started", summary: "Install, configure, run", body: gettingStarted },
-  { slug: "architecture", title: "Architecture", summary: "System design and data flow", body: architecture },
-  { slug: "data-and-sync", title: "Data & Sync", summary: "Local storage and simulation state", body: dataAndSync },
-  { slug: "api-reference", title: "API Reference", summary: "HTTP API and schemas", body: apiReference },
+export const docProjects = [
+  {
+    slug: "tinybot",
+    title: "Tinybot",
+    label: "PRIMARY DOCUMENTATION",
+    status: "Foundation · Active",
+    summary: "Source-backed notes on Tinybot's architecture and engineering tradeoffs.",
+    sections: [
+      {
+        title: "Architecture notes",
+        docs: [
+          {
+            slug: "agent-loop-persistence",
+            title: "Agent Loop 持久化",
+            summary: "Checkpoint、Rollout 与重启恢复的边界",
+            body: tinybotAgentLoopPersistence,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "virtualhome",
+    title: "VirtualHome",
+    label: "PROJECT DOCUMENTATION",
+    status: "v0.1.0 · Active",
+    summary: "A simulation-first guide to the household model, state, and API.",
+    sections: [
+      {
+        title: "Start here",
+        docs: [
+          { slug: "introduction", title: "Introduction", summary: "Overview and goals", body: introduction },
+          { slug: "getting-started", title: "Getting Started", summary: "Install, configure, run", body: gettingStarted },
+        ],
+      },
+      {
+        title: "Internals",
+        docs: [
+          { slug: "architecture", title: "Architecture", summary: "System design and data flow", body: architecture },
+          { slug: "data-and-sync", title: "Data & Sync", summary: "Local storage and simulation state", body: dataAndSync },
+        ],
+      },
+      {
+        title: "Reference",
+        docs: [
+          { slug: "api-reference", title: "API Reference", summary: "HTTP API and schemas", body: apiReference },
+        ],
+      },
+    ],
+  },
 ];

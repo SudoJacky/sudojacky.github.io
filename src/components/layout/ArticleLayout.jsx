@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
-import { docs } from "../../content/contentRegistry";
 import MarkdownArticleLayout from "../article/MarkdownArticleLayout";
+import { markdownRemarkPlugins } from "../article/markdownConfig";
 import ReactMarkdown from "react-markdown";
 
 export default function ArticleLayout({
@@ -8,7 +8,7 @@ export default function ArticleLayout({
   title,
   meta,
   body,
-  showDocNav = false,
+  docProject,
   showToc = false,
 }) {
   const header = (
@@ -34,19 +34,26 @@ export default function ArticleLayout({
   }
 
   return (
-    <main className={showDocNav ? "article-layout" : "article-layout article-layout-single"}>
-      {showDocNav && (
+    <main className={docProject ? "article-layout" : "article-layout article-layout-single"}>
+      {docProject && (
         <aside className="article-nav">
           <NavLink className="back-link" to="/docs">← All documentation</NavLink>
-          <p className="section-label">VIRTUALHOME</p>
-          {docs.map((doc) => (
-            <NavLink key={doc.slug} to={`/docs/virtualhome/${doc.slug}`}>{doc.title}</NavLink>
+          <p className="article-nav-project">{docProject.title}</p>
+          {docProject.sections.map((section) => (
+            <div className="article-nav-section" key={section.title}>
+              <p className="section-label">{section.title}</p>
+              {section.docs.map((doc) => (
+                <NavLink key={doc.slug} to={`/docs/${docProject.slug}/${doc.slug}`}>
+                  {doc.title}
+                </NavLink>
+              ))}
+            </div>
           ))}
         </aside>
       )}
       <article className="article">
         {header}
-        <ReactMarkdown>{body}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={markdownRemarkPlugins}>{body}</ReactMarkdown>
       </article>
     </main>
   );

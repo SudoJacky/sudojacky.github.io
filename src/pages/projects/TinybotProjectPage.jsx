@@ -6,6 +6,7 @@ import {
   GitBranch,
   PlugsConnected,
 } from "@phosphor-icons/react";
+import { NavLink } from "react-router-dom";
 import tinybotLogo from "../../assets/tinybot-logo.svg";
 import TinybotMorphShowcase from "../../components/tinybot/TinybotMorphShowcase";
 
@@ -55,6 +56,10 @@ export default function TinybotProjectPage({ project }) {
               View source
               <ArrowUpRight aria-hidden="true" size={18} />
             </a>
+            <NavLink className="text-link" to="/docs/tinybot/agent-loop-persistence">
+              Read documentation
+              <ArrowUpRight aria-hidden="true" size={18} />
+            </NavLink>
             <a
               className="text-link"
               href="https://github.com/SudoJacky/tinybot/releases"

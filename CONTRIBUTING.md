@@ -84,6 +84,14 @@ component: lazy(() => import("../pages/notes/ExampleNotePage")),
 
 存在 `component` 时使用定制页面，否则使用 Markdown 通用模板。
 
+## 新增 Doc
+
+1. 在 `src/content/docs/<project>/` 新增 Markdown 文件。
+2. 在 `contentRegistry.js` 的 `docProjects` 中找到对应项目和分组，登记 `slug`、`title`、`summary` 和 `body`。
+3. 文章会使用 `/docs/<project>/<slug>` 路由和共享侧栏模板渲染。
+
+新增文档项目时，将它作为一个完整条目加入 `docProjects`，并通过 `sections` 组织页面。数组顺序同时决定文档首页的项目和分组顺序。
+
 ## 新增 Project
 
 1. 在 `contentRegistry.js` 登记项目的 `slug`、`status`、`title`、`summary` 和 `stack`。

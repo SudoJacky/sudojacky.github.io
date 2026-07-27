@@ -123,7 +123,7 @@ button { color: inherit; }
 .tinybot-project-intro { min-width: 0; }
 .tinybot-project-intro h1 { margin: 16px 0 24px; font-size: clamp(68px, 9vw, 136px); font-weight: 400; line-height: 0.9; letter-spacing: -0.065em; }
 .tinybot-project-intro > p:not(.section-label) { max-width: 720px; color: var(--muted); font-family: "IBM Plex Sans", Arial, sans-serif; font-size: clamp(19px, 1.7vw, 24px); line-height: 1.55; }
-.tinybot-project-actions { display: flex; align-items: center; gap: 30px; margin-top: 42px; }
+.tinybot-project-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 30px; margin-top: 42px; }
 .tinybot-project-actions .button { min-width: 220px; gap: 16px; }
 .tinybot-runtime-panel { border: 1px solid var(--line); background: #121918; }
 .tinybot-runtime-panel::before { content: "RUNTIME PROFILE"; display: block; padding: 11px 16px; color: var(--muted); border-bottom: 1px solid var(--line); font-size: 10px; letter-spacing: 0.08em; }
@@ -316,10 +316,15 @@ button { color: inherit; }
 .virtualhome-system-map li > span { color: var(--accent); font-size: 11px; }
 .virtualhome-system-map strong { font-size: 17px; font-weight: 400; }
 .virtualhome-system-map small { color: var(--muted); font-family: "IBM Plex Sans", Arial, sans-serif; font-size: 14px; }
-.docs-index { display: grid; grid-template-columns: 280px 1fr; gap: 70px; }
+.docs-projects { display: grid; gap: 88px; }
+.docs-index { display: grid; grid-template-columns: 280px 1fr; gap: 70px; padding-top: 44px; border-top: 1px solid var(--line); }
+.docs-index-primary { padding-top: 0; border-top: 0; }
 .docs-index aside { padding-right: 30px; border-right: 1px solid var(--line); }
 .docs-index aside h2 { margin: 14px 0; font-size: 31px; font-weight: 400; }
-.docs-index aside > p:last-child { color: var(--muted); }
+.docs-project-status { color: var(--accent); font-size: 12px; }
+.docs-project-summary { margin-top: 22px; color: var(--muted); font-family: "IBM Plex Sans", Arial, sans-serif; font-size: 14px; line-height: 1.6; }
+.docs-section-stack { display: grid; gap: 34px; }
+.docs-section > .section-label { margin-bottom: 12px; color: var(--muted); }
 .doc-list-large a { min-height: 68px; grid-template-columns: 40px minmax(190px, 0.8fr) minmax(200px, 1fr) 30px; font-size: 16px; }
 .doc-list-large small { font-size: 14px; }
 
@@ -329,6 +334,9 @@ button { color: inherit; }
 .article-layout-toc .markdown-article-layout--embedded { width: min(100%, 1120px); }
 .article-nav { position: sticky; top: 40px; height: max-content; display: flex; flex-direction: column; gap: 13px; padding-right: 28px; border-right: 1px solid var(--line); }
 .article-nav .back-link { margin-bottom: 22px; color: var(--muted); font-size: 12px; }
+.article-nav-project { margin: 0 0 12px; font-size: 19px; }
+.article-nav-section { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.article-nav-section .section-label { margin-bottom: 2px; color: #68726e; font-size: 9px; }
 .article-nav a:not(.back-link) { color: var(--muted); font-size: 13px; }
 .article-nav a.active, .article-nav a:hover { color: var(--accent); }
 .article > h1 { margin: 16px 0 12px; font-size: clamp(42px, 5vw, 68px); font-weight: 400; line-height: 1.08; letter-spacing: -0.03em; }
@@ -339,6 +347,10 @@ button { color: inherit; }
 .article li { margin-bottom: 8px; }
 .article code { color: var(--accent); font-family: "IBM Plex Mono", Consolas, monospace; font-size: 0.92em; }
 .article pre { overflow-x: auto; padding: 20px; border: 1px solid var(--line); background: #0a0f10; }
+.article table { display: block; width: 100%; margin: 28px 0; overflow-x: auto; border-collapse: collapse; }
+.article th, .article td { min-width: 140px; padding: 12px 14px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+.article th { color: var(--accent); background: #0a0f10; font-family: "IBM Plex Mono", Consolas, monospace; font-size: 12px; font-weight: 500; }
+.article td { color: #c8cac5; font-family: "IBM Plex Sans", Arial, sans-serif; font-size: 15px; line-height: 1.55; }
 .article blockquote { margin: 30px 0; padding-left: 22px; border-left: 2px solid var(--accent); }
 .article blockquote p { color: var(--text); }
 .not-found { min-height: calc(100vh - 163px); display: grid; place-content: center; justify-items: start; }

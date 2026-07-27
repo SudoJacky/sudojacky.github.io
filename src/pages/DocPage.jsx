@@ -1,21 +1,24 @@
 import { useParams } from "react-router-dom";
 import ArticleLayout from "../components/layout/ArticleLayout";
-import { docs } from "../content/contentRegistry";
+import { docProjects } from "../content/contentRegistry";
 import NotFoundPage from "./NotFoundPage";
 
 export default function DocPage() {
-  const { slug } = useParams();
-  const doc = docs.find((item) => item.slug === slug);
+  const { projectSlug, slug } = useParams();
+  const project = docProjects.find((item) => item.slug === projectSlug);
+  const doc = project?.sections
+    .flatMap((section) => section.docs)
+    .find((item) => item.slug === slug);
 
-  if (!doc) return <NotFoundPage />;
+  if (!project || !doc) return <NotFoundPage />;
 
   return (
     <ArticleLayout
-      label="VIRTUALHOME DOCS"
+      label={`${project.title.toUpperCase()} DOCS`}
       title={doc.title}
       meta={doc.summary}
       body={doc.body}
-      showDocNav
+      docProject={project}
     />
   );
 }

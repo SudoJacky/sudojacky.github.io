@@ -20,7 +20,7 @@ export default function AppRouter() {
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/projects/:slug" element={<ProjectPage />} />
           <Route path="/docs" element={<DocsPage />} />
-          <Route path="/docs/virtualhome/:slug" element={<DocPage />} />
+          <Route path="/docs/:projectSlug/:slug" element={<DocPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
