@@ -1,6 +1,7 @@
 import { Children, isValidElement, useEffect, useMemo, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import LineSidebar from "../reactbits/LineSidebar";
+import { markdownRemarkPlugins } from "./markdownConfig";
 import "./MarkdownArticleLayout.css";
 
 function getPlainText(value) {
@@ -208,7 +209,12 @@ export default function MarkdownArticleLayout({
           </details>
         )}
         {children}
-        <ReactMarkdown components={markdownComponents}>{body}</ReactMarkdown>
+        <ReactMarkdown
+          components={markdownComponents}
+          remarkPlugins={markdownRemarkPlugins}
+        >
+          {body}
+        </ReactMarkdown>
       </article>
     </section>
   );

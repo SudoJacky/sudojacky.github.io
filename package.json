@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:counter": "node --test worker/index.test.js",
+    "test:markdown": "node --test src/components/article/markdownConfig.test.js",
     "counter:login": "npx --yes wrangler@4.113.0 login --use-keyring",
     "counter:create": "npx --yes wrangler@4.113.0 d1 create sudojacky-visit-counter",
     "counter:dev": "npx --yes wrangler@4.113.0 dev",
@@ -29,6 +30,7 @@
     "react-dom": "19.2.0",
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.18.1",
+    "remark-gfm": "^4.0.1",
     "three": "^0.180.0",
     "vite": "6.4.2"
   }
