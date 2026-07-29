@@ -327,6 +327,17 @@ button { color: inherit; }
 .docs-section > .section-label { margin-bottom: 12px; color: var(--muted); }
 .doc-list-large a { min-height: 68px; grid-template-columns: 40px minmax(190px, 0.8fr) minmax(200px, 1fr) 30px; font-size: 16px; }
 .doc-list-large small { font-size: 14px; }
+.docs-directory-link { min-height: 58px; display: grid; grid-template-columns: minmax(0, 1fr) auto 28px; align-items: center; gap: 18px; padding: 0 14px; color: var(--accent); border: 1px solid rgba(197, 255, 61, 0.42); background: var(--accent-soft); font-size: 13px; transition: border-color 160ms ease, background 160ms ease; }
+.docs-directory-link:hover { border-color: var(--accent); background: rgba(197, 255, 61, 0.12); }
+.docs-directory-link small { color: var(--muted); font-size: 11px; }
+.docs-directory-link svg { transition: transform 160ms ease; }
+.docs-directory-link:hover svg { transform: translateX(4px); }
+.docs-directory-back { display: inline-flex; margin-bottom: 38px; color: var(--muted); font-size: 12px; }
+.docs-directory-back:hover { color: var(--accent); }
+.docs-directory-page .page-intro { margin-bottom: 42px; }
+.docs-directory-meta { min-height: 54px; display: flex; align-items: center; gap: 28px; padding: 0 14px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); color: var(--muted); font-size: 11px; text-transform: uppercase; }
+.docs-directory-meta span:first-child { margin-right: auto; color: var(--accent); }
+.docs-directory-sections { width: min(100%, 1000px); margin: 54px 0 0 auto; }
 
 .article-layout { min-height: calc(100vh - 163px); display: grid; grid-template-columns: 250px minmax(0, 760px); justify-content: center; gap: 84px; padding: 70px 28px 110px; }
 .article-layout-single { grid-template-columns: minmax(0, 760px); }
@@ -407,6 +418,10 @@ button { color: inherit; }
   .experience-company { grid-column: 2; grid-row: 2; padding-left: 0; }
   .doc-list a { grid-template-columns: 30px 1fr 22px; }
   .doc-list small { display: none; }
+  .docs-directory-link { grid-template-columns: minmax(0, 1fr) 22px; }
+  .docs-directory-link small { display: none; }
+  .docs-directory-meta { align-items: flex-start; flex-direction: column; gap: 8px; padding: 14px 0; }
+  .docs-directory-meta span:first-child { margin-right: 0; }
   .interior-page { padding: 50px 0 75px; }
   .page-intro { margin-bottom: 45px; }
   .page-intro > p:last-child { font-size: 17px; }

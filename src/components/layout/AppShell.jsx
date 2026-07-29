@@ -1,6 +1,7 @@
 import { List, X } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
+import TargetCursor from "../reactbits/TargetCursor";
 
 let visitCountRequest;
 
@@ -58,6 +59,8 @@ export default function AppShell() {
 
   return (
     <div className="site-shell">
+      <TargetCursor targetSelector="a, button" hoverDuration={0.16} />
+
       <header className="site-header">
         <NavLink className="wordmark" to="/" aria-label="Jacky home">Jacky</NavLink>
         <button

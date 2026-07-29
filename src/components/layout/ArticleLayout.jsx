@@ -37,7 +37,9 @@ export default function ArticleLayout({
     <main className={docProject ? "article-layout" : "article-layout article-layout-single"}>
       {docProject && (
         <aside className="article-nav">
-          <NavLink className="back-link" to="/docs">← All documentation</NavLink>
+          <NavLink className="back-link" to={`/docs/${docProject.slug}`}>
+            ← {docProject.title} documentation
+          </NavLink>
           <p className="article-nav-project">{docProject.title}</p>
           {docProject.sections.map((section) => (
             <div className="article-nav-section" key={section.title}>

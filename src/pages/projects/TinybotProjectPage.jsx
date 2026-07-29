@@ -56,7 +56,7 @@ export default function TinybotProjectPage({ project }) {
               View source
               <ArrowUpRight aria-hidden="true" size={18} />
             </a>
-            <NavLink className="text-link" to="/docs/tinybot/agent-loop-persistence">
+            <NavLink className="text-link" to="/docs/tinybot">
               Read documentation
               <ArrowUpRight aria-hidden="true" size={18} />
             </NavLink>

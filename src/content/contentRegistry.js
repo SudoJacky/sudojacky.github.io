@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import tinybotAgentLongTermMemory from "./docs/tinybot/agent-long-term-memory.md?raw";
 import tinybotAgentLoopPersistence from "./docs/tinybot/agent-loop-persistence.md?raw";
 import apiReference from "./docs/virtualhome/api-reference.md?raw";
 import architecture from "./docs/virtualhome/architecture.md?raw";
@@ -68,6 +69,12 @@ export const docProjects = [
       {
         title: "Architecture notes",
         docs: [
+          {
+            slug: "agent-long-term-memory",
+            title: "Agent 长期记忆系统",
+            summary: "候选记忆如何从完成 Turn 进入 SQLite，并成为新 Thread 的固定上下文",
+            body: tinybotAgentLongTermMemory,
+          },
           {
             slug: "agent-loop-persistence",
             title: "Agent Loop 持久化",
