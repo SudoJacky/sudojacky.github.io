@@ -7,6 +7,7 @@ import NotePage from "../pages/NotePage";
 import NotesPage from "../pages/NotesPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import ProjectPage from "../pages/ProjectPage";
+import ProjectDocsPage from "../pages/ProjectDocsPage";
 import ProjectsPage from "../pages/ProjectsPage";
 
 export default function AppRouter() {
@@ -20,6 +21,7 @@ export default function AppRouter() {
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/projects/:slug" element={<ProjectPage />} />
           <Route path="/docs" element={<DocsPage />} />
+          <Route path="/docs/:projectSlug" element={<ProjectDocsPage />} />
           <Route path="/docs/:projectSlug/:slug" element={<DocPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

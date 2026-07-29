@@ -57,8 +57,8 @@ export default function VirtualHomeProjectPage({ project }) {
               View source
               <ArrowUpRight aria-hidden="true" size={18} />
             </a>
-            <NavLink className="text-link" to="/docs/virtualhome/introduction">
-              Read the architecture
+            <NavLink className="text-link" to="/docs/virtualhome">
+              Read documentation
               <ArrowUpRight aria-hidden="true" size={18} />
             </NavLink>
           </div>
