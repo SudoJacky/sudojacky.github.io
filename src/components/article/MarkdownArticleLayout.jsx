@@ -150,6 +150,9 @@ export default function MarkdownArticleLayout({
     h3: (props) => (
       <MarkdownHeading as="h3" headingsByLine={headingsByLine} {...props} />
     ),
+    img: ({ node, ...props }) => (
+      <img decoding="async" loading="lazy" {...props} />
+    ),
   }), [headingsByLine]);
 
   return (

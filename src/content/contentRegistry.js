@@ -6,6 +6,7 @@ import architecture from "./docs/virtualhome/architecture.md?raw";
 import dataAndSync from "./docs/virtualhome/data-and-sync.md?raw";
 import gettingStarted from "./docs/virtualhome/getting-started.md?raw";
 import introduction from "./docs/virtualhome/introduction.md?raw";
+import agentPluginsPortableBox from "./notes/agent-plugins-portable-box.md?raw";
 import agentConversationCompaction from "./notes/agent-conversation-compaction.md?raw";
 import fromAgentLineToTaskGraph from "./notes/from-agent-line-to-task-graph.md?raw";
 import fromPromptToAutonomousLoop from "./notes/from-prompt-to-autonomous-loop.md?raw";
@@ -13,6 +14,13 @@ import fromPromptToAutonomousLoop from "./notes/from-prompt-to-autonomous-loop.m
 // Add `component: lazy(() => import("..."))` when an entry needs a fully
 // custom page. Entries without one continue to use the shared page template.
 export const notes = [
+  {
+    slug: "agent-plugins-portable-box",
+    date: "2026-08-07",
+    title: "Skills 和 MCP 之间，缺的是一个可以搬走的盒子",
+    summary: "Agent Plugins 1.0.0 没有发明新的 Agent 能力，而是给 Skills 和 MCP 约定了一套可移植的包装格式。这个小规范解决了什么，又刻意不解决什么。",
+    body: agentPluginsPortableBox,
+  },
   {
     slug: "from-agent-line-to-task-graph",
     date: "2026-07-25",
