@@ -3,7 +3,7 @@ import test from "node:test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import ReactMarkdown from "react-markdown";
-import { markdownRemarkPlugins } from "./markdownConfig.js";
+import { isMermaidCodeClassName, markdownRemarkPlugins } from "./markdownConfig.js";
 
 test("renders a GFM table as table markup", () => {
   const markdown = [
@@ -19,4 +19,12 @@ test("renders a GFM table as table markup", () => {
   assert.match(html, /<table>/);
   assert.match(html, /<th>状态<\/th>/);
   assert.match(html, /<td>interrupted<\/td>/);
+});
+
+test("recognizes only fenced Mermaid language classes", () => {
+  assert.equal(isMermaidCodeClassName("language-mermaid"), true);
+  assert.equal(isMermaidCodeClassName("highlight language-mermaid"), true);
+  assert.equal(isMermaidCodeClassName("language-text"), false);
+  assert.equal(isMermaidCodeClassName("mermaid"), false);
+  assert.equal(isMermaidCodeClassName(null), false);
 });

@@ -1,6 +1,7 @@
 import { lazy } from "react";
 import tinybotAgentLongTermMemory from "./docs/tinybot/agent-long-term-memory.md?raw";
 import tinybotAgentLoopPersistence from "./docs/tinybot/agent-loop-persistence.md?raw";
+import tinybotMultiWorkspaceProjectCoordinator from "./docs/tinybot/multi-workspace-project-coordinator.md?raw";
 import apiReference from "./docs/virtualhome/api-reference.md?raw";
 import architecture from "./docs/virtualhome/architecture.md?raw";
 import dataAndSync from "./docs/virtualhome/data-and-sync.md?raw";
@@ -77,6 +78,12 @@ export const docProjects = [
       {
         title: "Architecture notes",
         docs: [
+          {
+            slug: "multi-workspace-project-coordinator",
+            title: "Tinybot 怎样协调多个工作目录",
+            summary: "协调 Agent 不直接碰文件，而是把任务交给各目录自己的持久化 Thread",
+            body: tinybotMultiWorkspaceProjectCoordinator,
+          },
           {
             slug: "agent-long-term-memory",
             title: "Agent 长期记忆系统",

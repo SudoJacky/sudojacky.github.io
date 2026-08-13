@@ -1,7 +1,10 @@
 import { NavLink } from "react-router-dom";
 import MarkdownArticleLayout from "../article/MarkdownArticleLayout";
+import MarkdownPre from "../article/MarkdownPre";
 import { markdownRemarkPlugins } from "../article/markdownConfig";
 import ReactMarkdown from "react-markdown";
+
+const markdownComponents = { pre: MarkdownPre };
 
 export default function ArticleLayout({
   label,
@@ -55,7 +58,12 @@ export default function ArticleLayout({
       )}
       <article className="article">
         {header}
-        <ReactMarkdown remarkPlugins={markdownRemarkPlugins}>{body}</ReactMarkdown>
+        <ReactMarkdown
+          components={markdownComponents}
+          remarkPlugins={markdownRemarkPlugins}
+        >
+          {body}
+        </ReactMarkdown>
       </article>
     </main>
   );

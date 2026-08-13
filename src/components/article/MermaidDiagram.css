@@ -1,0 +1,50 @@
+.mermaid-diagram {
+  width: 100%;
+  margin: 30px 0 38px;
+}
+
+.mermaid-diagram__canvas,
+.mermaid-diagram__loading,
+.mermaid-diagram--error {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #0a0f10;
+}
+
+.mermaid-diagram__canvas {
+  min-height: 180px;
+  overflow-x: auto;
+  padding: clamp(18px, 3vw, 32px);
+}
+
+.mermaid-diagram__canvas svg {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.mermaid-diagram__loading {
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-family: "IBM Plex Mono", Consolas, monospace;
+  font-size: 12px;
+}
+
+.mermaid-diagram--error {
+  padding: 18px;
+}
+
+.mermaid-diagram--error figcaption {
+  margin-bottom: 14px;
+  color: #ff9b8f;
+  font-family: "IBM Plex Sans", Arial, sans-serif;
+  font-size: 14px;
+}
+
+.mermaid-diagram--error pre {
+  margin: 0;
+}

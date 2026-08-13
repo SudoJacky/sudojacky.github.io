@@ -2,6 +2,7 @@ import { Children, isValidElement, useEffect, useMemo, useRef, useState } from "
 import ReactMarkdown from "react-markdown";
 import LineSidebar from "../reactbits/LineSidebar";
 import { markdownRemarkPlugins } from "./markdownConfig";
+import MarkdownPre from "./MarkdownPre";
 import "./MarkdownArticleLayout.css";
 
 function getPlainText(value) {
@@ -153,6 +154,7 @@ export default function MarkdownArticleLayout({
     img: ({ node, ...props }) => (
       <img decoding="async" loading="lazy" {...props} />
     ),
+    pre: MarkdownPre,
   }), [headingsByLine]);
 
   return (
