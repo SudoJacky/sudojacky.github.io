@@ -11,10 +11,18 @@ import agentPluginsPortableBox from "./notes/agent-plugins-portable-box.md?raw";
 import agentConversationCompaction from "./notes/agent-conversation-compaction.md?raw";
 import fromAgentLineToTaskGraph from "./notes/from-agent-line-to-task-graph.md?raw";
 import fromPromptToAutonomousLoop from "./notes/from-prompt-to-autonomous-loop.md?raw";
+import huaweiA2aThirdPartyAgent from "./notes/huawei-a2a-third-party-agent.md?raw";
 
 // Add `component: lazy(() => import("..."))` when an entry needs a fully
 // custom page. Entries without one continue to use the shared page template.
 export const notes = [
+  {
+    slug: "huawei-a2a-third-party-agent",
+    date: "2026-08-13",
+    title: "华为怎样把第三方 Agent 接进小艺",
+    summary: "第三方 Agent 怎样在小艺开放平台登记，又怎样通过鸿蒙 Agent 通信协议被发现、协同和调用。",
+    body: huaweiA2aThirdPartyAgent,
+  },
   {
     slug: "agent-plugins-portable-box",
     date: "2026-08-07",
