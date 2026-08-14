@@ -68,7 +68,7 @@
 .compaction-hero-lede {
   max-width: 760px;
   margin: 0;
-  color: #c8cac5;
+  color: var(--body-text);
   font-family: "IBM Plex Sans", Arial, sans-serif;
   font-size: clamp(19px, 1.8vw, 25px);
   line-height: 1.65;
@@ -79,7 +79,7 @@
   grid-template-columns: 1fr 1fr auto;
   gap: 24px;
   padding-top: 22px;
-  color: #7f8986;
+  color: var(--subtle-text);
   border-top: 1px solid var(--line);
   font-size: 10px;
   letter-spacing: 0.08em;
@@ -103,7 +103,20 @@
   position: sticky;
   top: 82px;
   overflow: hidden;
+  contain: layout;
   background: #0a1012;
+}
+
+:root[data-theme="light"] .compaction-lab-stage,
+:root[data-theme="light"] .compaction-recovery-stage {
+  color-scheme: dark;
+  color: #e8e7e0;
+  --text: #e8e7e0;
+  --muted: #a8aaa6;
+  --line: #3b4140;
+  --accent: #c5ff3d;
+  --accent-soft: rgba(197, 255, 61, 0.08);
+  --accent-contrast: #101611;
 }
 
 .compaction-lab-stage::before {
@@ -210,6 +223,7 @@
 .compaction-method {
   min-width: 0;
   overflow: hidden;
+  contain: layout;
   border: 1px solid #3b4744;
   background: rgba(18, 25, 24, 0.96);
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.24);
@@ -835,7 +849,7 @@
 
 .compaction-note-body p,
 .compaction-note-body li {
-  color: #c8cac5;
+  color: var(--body-text);
   font-family: "IBM Plex Sans", Arial, sans-serif;
   font-size: 18px;
   line-height: 1.85;
@@ -860,7 +874,7 @@
   margin: 32px 0;
   padding: 24px;
   border: 1px solid var(--line);
-  background: #0a0f10;
+  background: var(--code-bg);
 }
 
 .compaction-note-body blockquote {

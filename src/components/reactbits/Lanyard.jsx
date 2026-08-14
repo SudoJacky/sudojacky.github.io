@@ -451,11 +451,13 @@ function Band({ onDraggingChange }) {
 
 // Project-specific, asset-free adaptation of React Bits' Lanyard component.
 export default function Lanyard() {
+  const wrapperRef = useRef(null);
   const reducedMotion = useReducedMotion();
   const [compact, setCompact] = useState(() => (
     window.matchMedia("(max-width: 980px), (pointer: coarse)").matches
   ));
   const [dragging, setDragging] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 980px), (pointer: coarse)");
@@ -464,10 +466,23 @@ export default function Lanyard() {
     return () => media.removeEventListener?.("change", updateMode);
   }, []);
 
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper || compact || reducedMotion) return undefined;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setVisible(entry.isIntersecting);
+    }, { rootMargin: "160px" });
+    observer.observe(wrapper);
+
+    return () => observer.disconnect();
+  }, [compact, reducedMotion]);
+
   if (compact || reducedMotion) return <StaticLanyard />;
 
   return (
     <div
+      ref={wrapperRef}
       className="lanyard-wrapper"
       data-native-cursor
       data-dragging={dragging ? "true" : "false"}
@@ -476,6 +491,7 @@ export default function Lanyard() {
       <Canvas
         camera={{ position: [0, -3.2, 20], rotation: [0, 0, 0], fov: 20 }}
         dpr={[1, 2]}
+        frameloop={visible ? "always" : "never"}
         gl={{ alpha: true }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), 0)}
       >

@@ -67,24 +67,45 @@
   border-bottom: 1px solid var(--line);
 }
 
-.markdown-article-mobile-toc summary {
+.markdown-article-mobile-toc__summary {
+  width: 100%;
   min-height: 54px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0;
   color: var(--accent);
+  border: 0;
+  background: transparent;
   font-size: 10px;
   letter-spacing: 0.08em;
   cursor: pointer;
-  list-style: none;
+  transition: transform var(--duration-press) var(--ease-out);
 }
 
-.markdown-article-mobile-toc summary::-webkit-details-marker {
-  display: none;
+.markdown-article-mobile-toc__summary:active {
+  transform: scale(0.99);
 }
 
-.markdown-article-mobile-toc summary span:last-child {
+.markdown-article-mobile-toc__summary span:last-child {
   color: var(--muted);
+}
+
+.markdown-article-mobile-toc__content {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows var(--duration-panel) var(--ease-drawer), opacity var(--duration-fast) ease;
+}
+
+.markdown-article-mobile-toc__content > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.markdown-article-mobile-toc[data-open="true"] .markdown-article-mobile-toc__content {
+  grid-template-rows: 1fr;
+  opacity: 1;
 }
 
 .markdown-article-mobile-toc ol {
@@ -103,7 +124,7 @@
   padding-left: 20px;
 }
 
-.markdown-article-mobile-toc button {
+.markdown-article-mobile-toc ol button {
   width: 100%;
   display: grid;
   grid-template-columns: 32px minmax(0, 1fr);
@@ -119,15 +140,15 @@
   cursor: pointer;
 }
 
-.markdown-article-mobile-toc button span {
-  color: #58635f;
+.markdown-article-mobile-toc ol button span {
+  color: var(--subtle-text);
   font-family: "IBM Plex Mono", Consolas, monospace;
   font-size: 10px;
 }
 
-.markdown-article-mobile-toc button[aria-current="location"],
-.markdown-article-mobile-toc button[aria-current="location"] span,
-.markdown-article-mobile-toc button:hover {
+.markdown-article-mobile-toc ol button[aria-current="location"],
+.markdown-article-mobile-toc ol button[aria-current="location"] span,
+.markdown-article-mobile-toc ol button:hover {
   color: var(--accent);
 }
 

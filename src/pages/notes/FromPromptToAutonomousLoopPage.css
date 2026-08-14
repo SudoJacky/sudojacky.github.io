@@ -78,7 +78,7 @@
 .agent-loop-hero-lede {
   max-width: 760px;
   margin: 0;
-  color: #c8cac5;
+  color: var(--body-text);
   font-family: "IBM Plex Sans", Arial, sans-serif;
   font-size: clamp(19px, 1.75vw, 25px);
   line-height: 1.65;
@@ -89,7 +89,7 @@
   grid-template-columns: 1fr 1fr auto;
   gap: 24px;
   padding-top: 22px;
-  color: #7f8986;
+  color: var(--subtle-text);
   border-top: 1px solid var(--line);
   font-size: 10px;
   letter-spacing: 0.08em;
@@ -114,6 +114,17 @@
   top: 82px;
   overflow: hidden;
   background: #091011;
+}
+
+:root[data-theme="light"] .agent-loop-evolution-stage {
+  color-scheme: dark;
+  color: #e8e7e0;
+  --text: #e8e7e0;
+  --muted: #a8aaa6;
+  --line: #3b4140;
+  --accent: #c5ff3d;
+  --accent-soft: rgba(197, 255, 61, 0.08);
+  --accent-contrast: #101611;
 }
 
 .agent-loop-evolution-stage::before {
@@ -587,7 +598,7 @@
 
 .agent-loop-body p,
 .agent-loop-body li {
-  color: #c8cac5;
+  color: var(--body-text);
   font-family: "IBM Plex Sans", Arial, sans-serif;
   font-size: 18px;
   line-height: 1.85;
@@ -623,7 +634,7 @@
   margin: 32px 0;
   padding: 24px;
   border: 1px solid var(--line);
-  background: #0a0f10;
+  background: var(--code-bg);
 }
 
 .agent-loop-body blockquote {

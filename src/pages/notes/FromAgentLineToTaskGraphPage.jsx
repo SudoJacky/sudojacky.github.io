@@ -141,20 +141,6 @@ export default function FromAgentLineToTaskGraphPage({ note }) {
         ease: "power3.out",
       });
 
-      page.querySelectorAll(".task-graph-body > *").forEach((item) => {
-        gsap.from(item, {
-          autoAlpha: 0,
-          y: 28,
-          duration: 0.72,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: item,
-            start: "top 88%",
-            once: true,
-          },
-        });
-      });
-
       return undefined;
     });
 
@@ -174,6 +160,7 @@ export default function FromAgentLineToTaskGraphPage({ note }) {
             graph.querySelector(`[data-node="${id}"]`),
           ]),
         );
+        const canvas = graph.querySelector(".task-graph-canvas");
         const branchNodes = [
           graphNodes.security,
           graphNodes.performance,
@@ -273,25 +260,24 @@ export default function FromAgentLineToTaskGraphPage({ note }) {
           .to(auditFlags, { autoAlpha: 0, y: -8, duration: 0.2 }, 1.43)
           .to(linearEdges, { autoAlpha: 0, duration: 0.28 }, 1.46)
           .to(graphNodes.security, {
-            left: "34%",
-            top: "22%",
+            x: () => canvas.clientWidth * 0.06,
+            y: () => canvas.clientHeight * -0.28,
             duration: 0.58,
             ease: "power2.inOut",
           }, 1.48)
           .to(graphNodes.performance, {
-            left: "34%",
-            top: "50%",
+            x: () => canvas.clientWidth * -0.12,
             duration: 0.58,
             ease: "power2.inOut",
           }, 1.48)
           .to(graphNodes.tests, {
-            left: "34%",
-            top: "78%",
+            x: () => canvas.clientWidth * -0.3,
+            y: () => canvas.clientHeight * 0.28,
             duration: 0.58,
             ease: "power2.inOut",
           }, 1.48)
           .to(graphNodes.report, {
-            left: "92%",
+            x: () => canvas.clientWidth * 0.04,
             duration: 0.58,
             ease: "power2.inOut",
           }, 1.48)
@@ -350,7 +336,7 @@ export default function FromAgentLineToTaskGraphPage({ note }) {
           .to(graphNodes.report, {
             width: 132,
             minHeight: 86,
-            left: "90%",
+            x: () => canvas.clientWidth * 0.02,
             borderColor: "#c5ff3d",
             backgroundColor: "rgba(197, 255, 61, 0.12)",
             duration: 0.38,

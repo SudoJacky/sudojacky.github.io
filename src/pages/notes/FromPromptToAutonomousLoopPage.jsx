@@ -67,20 +67,6 @@ export default function FromPromptToAutonomousLoopPage({ note }) {
         ease: "power3.out",
       });
 
-      page.querySelectorAll(".agent-loop-body > *").forEach((item) => {
-        gsap.from(item, {
-          autoAlpha: 0,
-          y: 28,
-          duration: 0.72,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: item,
-            start: "top 88%",
-            once: true,
-          },
-        });
-      });
-
       return undefined;
     });
 

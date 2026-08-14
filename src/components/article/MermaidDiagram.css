@@ -3,6 +3,13 @@
   margin: 30px 0 38px;
 }
 
+:root[data-theme="light"] .mermaid-diagram {
+  color-scheme: dark;
+  --muted: #a8aaa6;
+  --line: #3b4140;
+  --accent: #c5ff3d;
+}
+
 .mermaid-diagram__canvas,
 .mermaid-diagram__loading,
 .mermaid-diagram--error {

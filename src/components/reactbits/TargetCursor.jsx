@@ -28,7 +28,16 @@ export default function TargetCursor({
     const dot = cursor.querySelector(".target-cursor-dot");
     const originalCursor = document.body.style.cursor;
     const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    const setCursorX = gsap.quickSetter(cursor, "x", "px");
+    const setCursorY = gsap.quickSetter(cursor, "y", "px");
+    const setCursorOpacity = gsap.quickSetter(cursor, "opacity");
+    const cornerSetters = corners.map((corner) => ({
+      x: gsap.quickSetter(corner, "x", "px"),
+      y: gsap.quickSetter(corner, "y", "px"),
+    }));
     let activeTarget = null;
+    let activeRect = null;
+    let targetTweening = false;
 
     if (hideDefaultCursor) {
       document.body.style.cursor = "none";
@@ -37,20 +46,40 @@ export default function TargetCursor({
     gsap.set(cursor, { x: pointer.x, y: pointer.y });
     corners.forEach((corner, index) => gsap.set(corner, RESTING_POSITIONS[index]));
 
-    const updateTargetCorners = (immediate = false) => {
-      if (!activeTarget) return;
-      const rect = activeTarget.getBoundingClientRect();
+    const getTargetPositions = () => {
+      if (!activeRect) return null;
+
       const positions = [
-        { x: rect.left - pointer.x - 5, y: rect.top - pointer.y - 5 },
-        { x: rect.right - pointer.x - 7, y: rect.top - pointer.y - 5 },
-        { x: rect.right - pointer.x - 7, y: rect.bottom - pointer.y - 7 },
-        { x: rect.left - pointer.x - 5, y: rect.bottom - pointer.y - 7 },
+        { x: activeRect.left - pointer.x - 5, y: activeRect.top - pointer.y - 5 },
+        { x: activeRect.right - pointer.x - 7, y: activeRect.top - pointer.y - 5 },
+        { x: activeRect.right - pointer.x - 7, y: activeRect.bottom - pointer.y - 7 },
+        { x: activeRect.left - pointer.x - 5, y: activeRect.bottom - pointer.y - 7 },
       ];
 
+      return positions;
+    };
+
+    const updateTargetCorners = (immediate = false) => {
+      const positions = getTargetPositions();
+      if (!positions) return;
+
+      if (immediate && targetTweening) {
+        gsap.killTweensOf(corners, "x,y");
+        targetTweening = false;
+      } else if (!immediate) {
+        targetTweening = true;
+      }
+
       corners.forEach((corner, index) => {
+        if (immediate) {
+          cornerSetters[index].x(positions[index].x);
+          cornerSetters[index].y(positions[index].y);
+          return;
+        }
+
         gsap.to(corner, {
           ...positions[index],
-          duration: immediate ? 0 : hoverDuration,
+          duration: hoverDuration,
           ease: "power3.out",
           overwrite: true,
         });
@@ -60,6 +89,8 @@ export default function TargetCursor({
     const releaseTarget = () => {
       if (!activeTarget) return;
       activeTarget = null;
+      activeRect = null;
+      targetTweening = false;
       corners.forEach((corner, index) => {
         gsap.to(corner, {
           ...RESTING_POSITIONS[index],
@@ -75,11 +106,9 @@ export default function TargetCursor({
       pointer.x = event.clientX;
       pointer.y = event.clientY;
       const nativeCursorZone = event.target.closest?.("[data-native-cursor]");
-      gsap.set(cursor, {
-        x: pointer.x,
-        y: pointer.y,
-        opacity: nativeCursorZone ? 0 : 1,
-      });
+      setCursorX(pointer.x);
+      setCursorY(pointer.y);
+      setCursorOpacity(nativeCursorZone ? 0 : 1);
       if (nativeCursorZone) {
         releaseTarget();
         return;
@@ -91,6 +120,7 @@ export default function TargetCursor({
       const target = event.target.closest?.(targetSelector);
       if (!target || target === activeTarget) return;
       activeTarget = target;
+      activeRect = target.getBoundingClientRect();
       updateTargetCorners();
       gsap.to(dot, { scale: 0.5, duration: 0.15 });
     };
@@ -102,16 +132,21 @@ export default function TargetCursor({
       releaseTarget();
     };
 
-    const handleScroll = () => updateTargetCorners(true);
+    const refreshTarget = () => {
+      if (!activeTarget) return;
+      activeRect = activeTarget.getBoundingClientRect();
+      updateTargetCorners(true);
+    };
     const handlePointerLeave = () => gsap.to(cursor, { opacity: 0, duration: 0.15 });
     const handlePointerEnter = () => gsap.to(cursor, { opacity: 1, duration: 0.15 });
-    const handlePointerDown = () => gsap.to(cursor, { scale: 0.82, duration: 0.12 });
+    const handlePointerDown = () => gsap.to(cursor, { scale: 0.9, duration: 0.12 });
     const handlePointerUp = () => gsap.to(cursor, { scale: 1, duration: 0.18 });
 
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
     window.addEventListener("pointerover", handlePointerOver, { passive: true });
     window.addEventListener("pointerout", handlePointerOut, { passive: true });
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", refreshTarget, { passive: true });
+    window.addEventListener("resize", refreshTarget);
     document.addEventListener("mouseleave", handlePointerLeave);
     document.addEventListener("mouseenter", handlePointerEnter);
     window.addEventListener("pointerdown", handlePointerDown);
@@ -121,7 +156,8 @@ export default function TargetCursor({
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("pointerover", handlePointerOver);
       window.removeEventListener("pointerout", handlePointerOut);
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", refreshTarget);
+      window.removeEventListener("resize", refreshTarget);
       document.removeEventListener("mouseleave", handlePointerLeave);
       document.removeEventListener("mouseenter", handlePointerEnter);
       window.removeEventListener("pointerdown", handlePointerDown);

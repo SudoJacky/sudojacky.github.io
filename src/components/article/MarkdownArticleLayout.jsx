@@ -1,4 +1,4 @@
-import { Children, isValidElement, useEffect, useMemo, useRef, useState } from "react";
+import { Children, isValidElement, useEffect, useMemo, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import LineSidebar from "../reactbits/LineSidebar";
 import { markdownRemarkPlugins } from "./markdownConfig";
@@ -125,7 +125,7 @@ export default function MarkdownArticleLayout({
     [headings],
   );
   const activeIndex = useActiveHeading(headings);
-  const mobileTocRef = useRef(null);
+  const [mobileTocOpen, setMobileTocOpen] = useState(false);
   const hasToc = headings.length >= 2;
 
   const goToHeading = (heading, closeMobile = false) => {
@@ -139,9 +139,7 @@ export default function MarkdownArticleLayout({
     });
     window.history.replaceState(null, "", `#${encodeURIComponent(heading.id)}`);
 
-    if (closeMobile && mobileTocRef.current) {
-      mobileTocRef.current.open = false;
-    }
+    if (closeMobile) setMobileTocOpen(false);
   };
 
   const markdownComponents = useMemo(() => ({
@@ -192,26 +190,43 @@ export default function MarkdownArticleLayout({
 
       <article className={articleClassName}>
         {hasToc && (
-          <details className="markdown-article-mobile-toc" ref={mobileTocRef}>
-            <summary>
+          <nav
+            aria-label="本文目录（移动端）"
+            className="markdown-article-mobile-toc"
+            data-open={mobileTocOpen ? "true" : "false"}
+          >
+            <button
+              aria-expanded={mobileTocOpen}
+              className="markdown-article-mobile-toc__summary"
+              onClick={() => setMobileTocOpen((value) => !value)}
+              type="button"
+            >
               <span>IN THIS NOTE</span>
               <span>{String(activeIndex + 1).padStart(2, "0")} / {String(headings.length).padStart(2, "0")}</span>
-            </summary>
-            <ol>
-              {headings.map((heading, index) => (
-                <li className={`is-level-${heading.level}`} key={heading.id}>
-                  <button
-                    aria-current={index === activeIndex ? "location" : undefined}
-                    onClick={() => goToHeading(heading, true)}
-                    type="button"
-                  >
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    {heading.label}
-                  </button>
-                </li>
-              ))}
-            </ol>
-          </details>
+            </button>
+            <div
+              className="markdown-article-mobile-toc__content"
+              aria-hidden={!mobileTocOpen}
+              inert={!mobileTocOpen ? "" : undefined}
+            >
+              <div>
+                <ol>
+                  {headings.map((heading, index) => (
+                    <li className={`is-level-${heading.level}`} key={heading.id}>
+                      <button
+                        aria-current={index === activeIndex ? "location" : undefined}
+                        onClick={() => goToHeading(heading, true)}
+                        type="button"
+                      >
+                        <span>{String(index + 1).padStart(2, "0")}</span>
+                        {heading.label}
+                      </button>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          </nav>
         )}
         {children}
         <ReactMarkdown

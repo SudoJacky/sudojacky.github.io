@@ -115,10 +115,7 @@ export default function AgentConversationCompactionPage({ note }) {
 
     media.add("(prefers-reduced-motion: no-preference)", () => {
       const heroElements = page.querySelectorAll(".compaction-note-hero [data-intro]");
-      const revealItems = new Set([
-        ...page.querySelectorAll("[data-scroll-reveal]"),
-        ...page.querySelectorAll(".compaction-note-body > *"),
-      ]);
+      const revealItems = page.querySelectorAll("[data-scroll-reveal]");
 
       gsap.from(heroElements, {
         autoAlpha: 0,
@@ -131,9 +128,9 @@ export default function AgentConversationCompactionPage({ note }) {
       revealItems.forEach((item) => {
         gsap.from(item, {
           autoAlpha: 0,
-          y: 30,
-          duration: 0.75,
-          ease: "power2.out",
+          y: 10,
+          duration: 0.32,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: item,
             start: "top 88%",
@@ -176,7 +173,7 @@ export default function AgentConversationCompactionPage({ note }) {
           borderWidth: 0,
         });
         gsap.set([methodAResult, methodBResult], { autoAlpha: 0, y: 12 });
-        gsap.set(methodBScan, { autoAlpha: 0, bottom: "4%" });
+        gsap.set(methodBScan, { autoAlpha: 0, y: 0 });
         gsap.set(progress, { scaleX: 0.08, transformOrigin: "left center" });
 
         const timeline = gsap.timeline({
@@ -220,7 +217,11 @@ export default function AgentConversationCompactionPage({ note }) {
           .to(captions[2], { autoAlpha: 1, y: 0, duration: 0.2 }, 1.2)
           .to(methodA, { autoAlpha: 0.42, duration: 0.25 }, 1.15)
           .to(methodB, { autoAlpha: 1, duration: 0.25 }, 1.15)
-          .to(methodBScan, { autoAlpha: 1, bottom: "88%", duration: 0.75 }, 1.18)
+          .to(methodBScan, {
+            autoAlpha: 1,
+            y: () => -methodBScan.parentElement.clientHeight * 0.84,
+            duration: 0.75,
+          }, 1.18)
           .to(methodBRemoved, {
             autoAlpha: 0,
             height: 0,

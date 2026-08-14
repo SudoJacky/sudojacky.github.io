@@ -40,6 +40,7 @@ export default function LineSidebar({
   ariaLabel = "Table of contents",
 }) {
   const itemRefs = useRef([]);
+  const itemCenters = useRef([]);
   const pointerY = useRef(null);
   const frame = useRef(null);
   const activeRef = useRef(defaultActive);
@@ -48,33 +49,59 @@ export default function LineSidebar({
 
   activeRef.current = activeIndex;
 
+  const measureItems = () => {
+    itemCenters.current = itemRefs.current.map((item) => {
+      if (!item) return null;
+      const rect = item.getBoundingClientRect();
+      return rect.top + rect.height / 2;
+    });
+  };
+
+  const updateEffects = () => {
+    itemRefs.current.forEach((item, index) => {
+      if (!item) return;
+
+      const activeEffect = index === activeRef.current ? 1 : 0;
+      const center = itemCenters.current[index];
+      const pointerEffect = pointerY.current === null || center == null
+        ? 0
+        : getFalloff(
+          Math.abs(pointerY.current - center),
+          proximityRadius,
+          falloff,
+        );
+
+      item.style.setProperty("--effect", Math.max(activeEffect, pointerEffect));
+    });
+  };
+
+  const scheduleUpdate = () => {
+    if (frame.current !== null) return;
+    frame.current = window.requestAnimationFrame(() => {
+      frame.current = null;
+      updateEffects();
+    });
+  };
+
   useEffect(() => {
-    const update = () => {
-      itemRefs.current.forEach((item, index) => {
-        if (!item) return;
+    measureItems();
+    scheduleUpdate();
 
-        const activeEffect = index === activeRef.current ? 1 : 0;
-        let pointerEffect = 0;
-
-        if (pointerY.current !== null) {
-          const rect = item.getBoundingClientRect();
-          const center = rect.top + rect.height / 2;
-          pointerEffect = getFalloff(
-            Math.abs(pointerY.current - center),
-            proximityRadius,
-            falloff,
-          );
-        }
-
-        item.style.setProperty("--effect", Math.max(activeEffect, pointerEffect));
-      });
-
-      frame.current = window.requestAnimationFrame(update);
+    const handleResize = () => {
+      measureItems();
+      scheduleUpdate();
     };
 
-    frame.current = window.requestAnimationFrame(update);
-    return () => window.cancelAnimationFrame(frame.current);
-  }, [falloff, proximityRadius]);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (frame.current !== null) window.cancelAnimationFrame(frame.current);
+    };
+  }, [falloff, items.length, proximityRadius]);
+
+  useEffect(() => {
+    scheduleUpdate();
+  }, [activeIndex, falloff, proximityRadius]);
 
   const style = {
     "--accent-color": accentColor,
@@ -100,11 +127,18 @@ export default function LineSidebar({
     <nav
       aria-label={ariaLabel}
       className={classes}
+      onPointerEnter={(event) => {
+        measureItems();
+        pointerY.current = event.clientY;
+        scheduleUpdate();
+      }}
       onPointerMove={(event) => {
         pointerY.current = event.clientY;
+        scheduleUpdate();
       }}
       onPointerLeave={() => {
         pointerY.current = null;
+        scheduleUpdate();
       }}
       style={style}
     >

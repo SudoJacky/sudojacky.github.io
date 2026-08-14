@@ -143,6 +143,7 @@ export default function LiquidEther({
     };
 
     const handlePointerMove = (event) => {
+      if (!visible) return;
       const rect = mount.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
       const inside = (
