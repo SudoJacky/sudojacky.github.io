@@ -10,6 +10,7 @@
     "test:counter": "node --test worker/index.test.js",
     "test:docs": "node --test src/content/docNavigation.test.js",
     "test:markdown": "node --test src/components/article/markdownConfig.test.js",
+    "test:notes-search": "node --test src/pages/noteSearchInput.test.js",
     "counter:login": "npx --yes wrangler@4.113.0 login --use-keyring",
     "counter:create": "npx --yes wrangler@4.113.0 d1 create sudojacky-visit-counter",
     "counter:dev": "npx --yes wrangler@4.113.0 dev",

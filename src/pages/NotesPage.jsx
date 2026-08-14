@@ -1,7 +1,9 @@
 import { ArrowRight, MagnifyingGlass, X } from "@phosphor-icons/react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink, useSearchParams } from "react-router-dom";
 import PageIntro from "../components/layout/PageIntro";
 import { notes } from "../content/contentRegistry";
+import { getSearchChangeCommit } from "./noteSearchInput";
 
 function normalize(value) {
   return value.toLocaleLowerCase().normalize("NFKC");
@@ -65,6 +67,9 @@ function HighlightedText({ terms, text }) {
 export default function NotesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q") ?? "";
+  const [searchInput, setSearchInput] = useState(query);
+  const isComposing = useRef(false);
+  const committedCompositionValue = useRef(null);
   const terms = getSearchTerms(query);
   const results = terms.length
     ? notes.filter((note) => {
@@ -72,6 +77,10 @@ export default function NotesPage() {
         return terms.every((term) => searchableText.includes(term));
       })
     : notes;
+
+  useEffect(() => {
+    if (!isComposing.current) setSearchInput(query);
+  }, [query]);
 
   function updateQuery(value) {
     const nextParams = new URLSearchParams(searchParams);
@@ -83,6 +92,35 @@ export default function NotesPage() {
     }
 
     setSearchParams(nextParams, { replace: true });
+  }
+
+  function handleSearchChange(event) {
+    const value = event.currentTarget.value;
+    const composing = isComposing.current || event.nativeEvent.isComposing;
+    const committedValue = getSearchChangeCommit(
+      value,
+      composing,
+      committedCompositionValue.current,
+    );
+
+    setSearchInput(value);
+    if (!composing) committedCompositionValue.current = null;
+    if (committedValue !== null) updateQuery(committedValue);
+  }
+
+  function handleCompositionEnd(event) {
+    const value = event.currentTarget.value;
+    isComposing.current = false;
+    committedCompositionValue.current = value;
+    setSearchInput(value);
+    updateQuery(value);
+  }
+
+  function clearQuery() {
+    isComposing.current = false;
+    committedCompositionValue.current = null;
+    setSearchInput("");
+    updateQuery("");
   }
 
   return (
@@ -98,13 +136,18 @@ export default function NotesPage() {
           <span className="sr-only">Search notes</span>
           <input
             autoComplete="off"
-            onChange={(event) => updateQuery(event.target.value)}
+            onChange={handleSearchChange}
+            onCompositionEnd={handleCompositionEnd}
+            onCompositionStart={() => {
+              isComposing.current = true;
+              committedCompositionValue.current = null;
+            }}
             placeholder="Search titles, summaries, and full text"
             type="search"
-            value={query}
+            value={searchInput}
           />
-          {query && (
-            <button aria-label="Clear search" onClick={() => updateQuery("")} type="button">
+          {searchInput && (
+            <button aria-label="Clear search" onClick={clearQuery} type="button">
               <X aria-hidden="true" size={18} />
             </button>
           )}
@@ -140,7 +183,7 @@ export default function NotesPage() {
           <span>NO MATCHES</span>
           <h2>Nothing in the notebook yet.</h2>
           <p>Try a shorter phrase or search for a different system, tool, or idea.</p>
-          <button onClick={() => updateQuery("")} type="button">CLEAR SEARCH</button>
+          <button onClick={clearQuery} type="button">CLEAR SEARCH</button>
         </div>
       )}
     </main>

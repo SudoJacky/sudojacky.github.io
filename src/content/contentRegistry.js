@@ -9,6 +9,7 @@ import gettingStarted from "./docs/virtualhome/getting-started.md?raw";
 import introduction from "./docs/virtualhome/introduction.md?raw";
 import agentPluginsPortableBox from "./notes/agent-plugins-portable-box.md?raw";
 import agentConversationCompaction from "./notes/agent-conversation-compaction.md?raw";
+import agentRoomCoordination from "./notes/agent-room-coordination.md?raw";
 import fromAgentLineToTaskGraph from "./notes/from-agent-line-to-task-graph.md?raw";
 import fromPromptToAutonomousLoop from "./notes/from-prompt-to-autonomous-loop.md?raw";
 import huaweiA2aThirdPartyAgent from "./notes/huawei-a2a-third-party-agent.md?raw";
@@ -16,6 +17,13 @@ import huaweiA2aThirdPartyAgent from "./notes/huawei-a2a-third-party-agent.md?ra
 // Add `component: lazy(() => import("..."))` when an entry needs a fully
 // custom page. Entries without one continue to use the shared page template.
 export const notes = [
+  {
+    slug: "agent-room-coordination",
+    date: "2026-08-14",
+    title: "Agent 一进群就抢话，问题出在房间",
+    summary: "多个 Agent 共处一个频道时，@mention 只能压住噪声。系统需要显式处理快照版本、注意力、过期草稿，以及沉默的权利。",
+    body: agentRoomCoordination,
+  },
   {
     slug: "huawei-a2a-third-party-agent",
     date: "2026-08-13",
