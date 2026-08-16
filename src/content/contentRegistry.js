@@ -11,12 +11,20 @@ import agentPluginsPortableBox from "./notes/agent-plugins-portable-box.md?raw";
 import agentConversationCompaction from "./notes/agent-conversation-compaction.md?raw";
 import agentRoomCoordination from "./notes/agent-room-coordination.md?raw";
 import fromAgentLineToTaskGraph from "./notes/from-agent-line-to-task-graph.md?raw";
+import fromCompletionsToResponses from "./notes/from-completions-to-responses.md?raw";
 import fromPromptToAutonomousLoop from "./notes/from-prompt-to-autonomous-loop.md?raw";
 import huaweiA2aThirdPartyAgent from "./notes/huawei-a2a-third-party-agent.md?raw";
 
 // Add `component: lazy(() => import("..."))` when an entry needs a fully
 // custom page. Entries without one continue to use the shared page template.
 export const notes = [
+  {
+    slug: "from-completions-to-responses",
+    date: "2026-08-16",
+    title: "当 API 不再只返回一段话：从 Completions 到 Responses",
+    summary: "大模型接口从 prompt 续写，走到带角色的 messages，再走到可携带状态、工具与事件的 response。这三次数据模型变化背后，产品正从文本生成器走向 Agent 运行时。",
+    body: fromCompletionsToResponses,
+  },
   {
     slug: "agent-room-coordination",
     date: "2026-08-14",
