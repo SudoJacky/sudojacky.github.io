@@ -10,6 +10,7 @@ import introduction from "./docs/virtualhome/introduction.md?raw";
 import agentPluginsPortableBox from "./notes/agent-plugins-portable-box.md?raw";
 import agentConversationCompaction from "./notes/agent-conversation-compaction.md?raw";
 import agentRoomCoordination from "./notes/agent-room-coordination.md?raw";
+import efficientCodingAgentSessions from "./notes/efficient-coding-agent-sessions.md?raw";
 import fromAgentLineToTaskGraph from "./notes/from-agent-line-to-task-graph.md?raw";
 import fromCompletionsToResponses from "./notes/from-completions-to-responses.md?raw";
 import fromPromptToAutonomousLoop from "./notes/from-prompt-to-autonomous-loop.md?raw";
@@ -18,6 +19,13 @@ import huaweiA2aThirdPartyAgent from "./notes/huawei-a2a-third-party-agent.md?ra
 // Add `component: lazy(() => import("..."))` when an entry needs a fully
 // custom page. Entries without one continue to use the shared page template.
 export const notes = [
+  {
+    slug: "efficient-coding-agent-sessions",
+    date: "2026-08-19",
+    title: "同一个改动，为什么 Coding 会话越长越费劲",
+    summary: "文件、命令输出和旧对话会在后续每一轮里反复出现。我怎样控制会话边界，少让无关上下文陪跑。",
+    body: efficientCodingAgentSessions,
+  },
   {
     slug: "from-completions-to-responses",
     date: "2026-08-16",
