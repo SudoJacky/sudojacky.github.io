@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import tinybotAgentGraph from "./docs/tinybot/agent-graph.md?raw";
 import tinybotAgentLongTermMemory from "./docs/tinybot/agent-long-term-memory.md?raw";
 import tinybotAgentLoopPersistence from "./docs/tinybot/agent-loop-persistence.md?raw";
 import tinybotMultiWorkspaceProjectCoordinator from "./docs/tinybot/multi-workspace-project-coordinator.md?raw";
@@ -110,6 +111,12 @@ export const docProjects = [
       {
         title: "Architecture notes",
         docs: [
+          {
+            slug: "agent-graph",
+            title: "Tinybot 如何实现 Agent Graph",
+            summary: "Graph definition、单游标执行、Router 回环与标准 Agent Thread 怎样拼成一条可追查的工作流",
+            body: tinybotAgentGraph,
+          },
           {
             slug: "multi-workspace-project-coordinator",
             title: "Tinybot 怎样协调多个工作目录",
