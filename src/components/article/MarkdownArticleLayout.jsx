@@ -1,5 +1,6 @@
 import { Children, isValidElement, useEffect, useMemo, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import { useLocation, useNavigate } from "react-router-dom";
 import LineSidebar from "../reactbits/LineSidebar";
 import { markdownRemarkPlugins } from "./markdownConfig";
 import MarkdownPre from "./MarkdownPre";
@@ -119,6 +120,8 @@ export default function MarkdownArticleLayout({
   className = "",
   children,
 }) {
+  const location = useLocation();
+  const navigate = useNavigate();
   const headings = useMemo(() => extractMarkdownHeadings(body), [body]);
   const headingsByLine = useMemo(
     () => new Map(headings.map((heading) => [heading.line, heading])),
@@ -137,7 +140,11 @@ export default function MarkdownArticleLayout({
       behavior: reducedMotion ? "auto" : "smooth",
       block: "start",
     });
-    window.history.replaceState(null, "", `#${encodeURIComponent(heading.id)}`);
+    navigate({
+      pathname: location.pathname,
+      search: location.search,
+      hash: `#${encodeURIComponent(heading.id)}`,
+    }, { replace: true });
 
     if (closeMobile) setMobileTocOpen(false);
   };

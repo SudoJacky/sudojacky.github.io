@@ -15,11 +15,19 @@ import efficientCodingAgentSessions from "./notes/efficient-coding-agent-session
 import fromAgentLineToTaskGraph from "./notes/from-agent-line-to-task-graph.md?raw";
 import fromCompletionsToResponses from "./notes/from-completions-to-responses.md?raw";
 import fromPromptToAutonomousLoop from "./notes/from-prompt-to-autonomous-loop.md?raw";
+import gpt6AstraAgentWorkingBoundaries from "./notes/gpt-6-astra-agent-working-boundaries.md?raw";
 import huaweiA2aThirdPartyAgent from "./notes/huawei-a2a-third-party-agent.md?raw";
 
 // Add `component: lazy(() => import("..."))` when an entry needs a fully
 // custom page. Entries without one continue to use the shared page template.
 export const notes = [
+  {
+    slug: "gpt-6-astra-agent-working-boundaries",
+    date: "2026-09-05",
+    title: "接入 GPT-6 Astra，要一起改的还有 Agent 的工作方式",
+    summary: "读 OpenAI 最新模型指南：怎样减少无谓确认，处理异步工具与中途追加指令，以及把推理配置、写作和验证范围写清楚。",
+    body: gpt6AstraAgentWorkingBoundaries,
+  },
   {
     slug: "efficient-coding-agent-sessions",
     date: "2026-08-19",
