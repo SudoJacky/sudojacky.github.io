@@ -17,10 +17,18 @@ import fromCompletionsToResponses from "./notes/from-completions-to-responses.md
 import fromPromptToAutonomousLoop from "./notes/from-prompt-to-autonomous-loop.md?raw";
 import gpt6AstraAgentWorkingBoundaries from "./notes/gpt-6-astra-agent-working-boundaries.md?raw";
 import huaweiA2aThirdPartyAgent from "./notes/huawei-a2a-third-party-agent.md?raw";
+import openaiAgentsApiManagedRuntime from "./notes/openai-agents-api-managed-runtime.md?raw";
 
 // Add `component: lazy(() => import("..."))` when an entry needs a fully
 // custom page. Entries without one continue to use the shared page template.
 export const notes = [
+  {
+    slug: "openai-agents-api-managed-runtime",
+    date: "2026-09-16",
+    title: "OpenAI Agents API：把 Codex 的运行框架接进自己的应用",
+    summary: "沿着一次任务看 Agents API 怎样管理会话、调用工具和保存产物，以及它与 Responses API、Agents SDK 的分工。运行框架交给平台后，应用还要负责什么。",
+    body: openaiAgentsApiManagedRuntime,
+  },
   {
     slug: "gpt-6-astra-agent-working-boundaries",
     date: "2026-09-05",
