@@ -1,4 +1,6 @@
 import { Children, isValidElement, useEffect, useMemo, useState } from "react";
+import { CaretDown } from "@phosphor-icons/react";
+import { flushSync } from "react-dom";
 import ReactMarkdown from "react-markdown";
 import { useLocation, useNavigate } from "react-router-dom";
 import LineSidebar from "../reactbits/LineSidebar";
@@ -111,7 +113,7 @@ function MarkdownHeading({ as: Tag, node, headingsByLine, children, ...props }) 
   const heading = headingsByLine.get(node?.position?.start?.line);
   const id = heading?.id ?? slugify(getPlainText(children));
 
-  return <Tag id={id} {...props}>{children}</Tag>;
+  return <Tag id={id} tabIndex={-1} {...props}>{children}</Tag>;
 }
 
 export default function MarkdownArticleLayout({
@@ -132,10 +134,12 @@ export default function MarkdownArticleLayout({
   const hasToc = headings.length >= 2;
 
   const goToHeading = (heading, closeMobile = false) => {
+    if (closeMobile) flushSync(() => setMobileTocOpen(false));
     const element = document.getElementById(heading.id);
     if (!element) return;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    element.focus({ preventScroll: true });
     element.scrollIntoView({
       behavior: reducedMotion ? "auto" : "smooth",
       block: "start",
@@ -145,8 +149,6 @@ export default function MarkdownArticleLayout({
       search: location.search,
       hash: `#${encodeURIComponent(heading.id)}`,
     }, { replace: true });
-
-    if (closeMobile) setMobileTocOpen(false);
   };
 
   const markdownComponents = useMemo(() => ({
@@ -173,13 +175,13 @@ export default function MarkdownArticleLayout({
       {hasToc && (
         <aside className="markdown-article-toc">
           <div className="markdown-article-toc__inner">
-            <p>IN THIS NOTE</p>
+            <p>ON THIS PAGE</p>
             <LineSidebar
               accentColor="var(--accent)"
               activeIndex={activeIndex}
               ariaLabel="本文目录"
               className="markdown-article-line-sidebar"
-              fontSize={0.78}
+              fontSize={0.875}
               itemGap={17}
               items={headings}
               markerColor="#46504d"
@@ -189,7 +191,7 @@ export default function MarkdownArticleLayout({
               proximityRadius={76}
               showIndex={false}
               smoothing={120}
-              textColor="#7f8986"
+              textColor="var(--muted)"
             />
           </div>
         </aside>
@@ -208,13 +210,14 @@ export default function MarkdownArticleLayout({
               onClick={() => setMobileTocOpen((value) => !value)}
               type="button"
             >
-              <span>IN THIS NOTE</span>
-              <span>{String(activeIndex + 1).padStart(2, "0")} / {String(headings.length).padStart(2, "0")}</span>
+              <span>ON THIS PAGE</span>
+              <span>{String(activeIndex + 1).padStart(2, "0")} / {String(headings.length).padStart(2, "0")} <CaretDown size={16} aria-hidden="true" /></span>
             </button>
             <div
               className="markdown-article-mobile-toc__content"
+              hidden={!mobileTocOpen}
               aria-hidden={!mobileTocOpen}
-              inert={!mobileTocOpen ? "" : undefined}
+              inert={!mobileTocOpen}
             >
               <div>
                 <ol>

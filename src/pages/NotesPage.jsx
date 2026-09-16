@@ -127,8 +127,8 @@ export default function NotesPage() {
     <main className="interior-page">
       <PageIntro
         label="NOTES"
-        title="Field notes from the workbench."
-        copy="Longer thoughts on systems, tools, debugging, and the choices that shape software."
+        title="Notes"
+        copy="Agent systems, engineering decisions, and lessons from building."
       />
       <section className="note-search" aria-label="Search notes">
         <label className="note-search-field">
@@ -142,7 +142,7 @@ export default function NotesPage() {
               isComposing.current = true;
               committedCompositionValue.current = null;
             }}
-            placeholder="Search titles, summaries, and full text"
+            placeholder="Search notes…"
             type="search"
             value={searchInput}
           />
@@ -159,7 +159,7 @@ export default function NotesPage() {
       </section>
 
       {results.length ? (
-        <div className="index-list">
+        <div className="index-list" lang="zh-CN">
           {results.map((note) => (
             <NavLink className="index-row" key={note.slug} to={`/notes/${note.slug}`}>
               <span className="index-number">
@@ -181,7 +181,7 @@ export default function NotesPage() {
       ) : (
         <div className="note-search-empty">
           <span>NO MATCHES</span>
-          <h2>Nothing in the notebook yet.</h2>
+          <h2>No notes match your search.</h2>
           <p>Try a shorter phrase or search for a different system, tool, or idea.</p>
           <button onClick={clearQuery} type="button">CLEAR SEARCH</button>
         </div>

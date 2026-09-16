@@ -10,8 +10,8 @@ export default function DocsPage() {
     <main className="interior-page">
       <PageIntro
         label="DOCUMENTATION"
-        title="Tinybot first. Project knowledge, kept navigable."
-        copy="Tinybot is the primary documentation track, organized from the first run and core concepts through architecture, configuration, and reference."
+        title="Documentation"
+        copy="Architecture and engineering notes for Tinybot. Setup and system guides for VirtualHome."
       />
       <div className="docs-projects">
         {docProjects.map((project) => {

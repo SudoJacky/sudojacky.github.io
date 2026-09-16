@@ -1,70 +1,28 @@
 import { NavLink } from "react-router-dom";
 import MarkdownArticleLayout from "../article/MarkdownArticleLayout";
-import MarkdownPre from "../article/MarkdownPre";
-import { markdownRemarkPlugins } from "../article/markdownConfig";
-import ReactMarkdown from "react-markdown";
 
-const markdownComponents = { pre: MarkdownPre };
-
-export default function ArticleLayout({
-  label,
-  title,
-  meta,
-  body,
-  docProject,
-  showToc = false,
-}) {
-  const header = (
-    <>
-      <p className="section-label">{label}</p>
-      <h1>{title}</h1>
-      <p className="article-meta">{meta}</p>
-    </>
-  );
-
-  if (showToc) {
-    return (
-      <main className="article-layout article-layout-toc">
-        <MarkdownArticleLayout
-          articleClassName="article"
-          body={body}
-          className="markdown-article-layout--embedded"
-        >
-          {header}
-        </MarkdownArticleLayout>
-      </main>
-    );
-  }
-
+export default function ArticleLayout({ label, title, meta, body, docProject }) {
   return (
-    <main className={docProject ? "article-layout" : "article-layout article-layout-single"}>
+    <main className="article-layout article-layout-toc">
       {docProject && (
-        <aside className="article-nav">
-          <NavLink className="back-link" to={`/docs/${docProject.slug}`}>
-            ← {docProject.title} documentation
-          </NavLink>
-          <p className="article-nav-project">{docProject.title}</p>
-          {docProject.sections.map((section) => (
-            <div className="article-nav-section" key={section.title}>
-              <p className="section-label">{section.title}</p>
-              {section.docs.map((doc) => (
-                <NavLink key={doc.slug} to={`/docs/${docProject.slug}/${doc.slug}`}>
-                  {doc.title}
-                </NavLink>
-              ))}
-            </div>
-          ))}
-        </aside>
+        <details className="doc-navigation" key={`navigation-${title}`}>
+          <summary>{docProject.title} / {docProject.slug === "tinybot" ? "文档导航" : "Documentation"}</summary>
+          <nav aria-label={`${docProject.title} documentation`}>
+            <NavLink className="back-link" to={`/docs/${docProject.slug}`}>← All {docProject.title} documentation</NavLink>
+            {docProject.sections.map((section) => (
+              <div className="article-nav-section" key={section.title}>
+                <p className="section-label">{section.title}</p>
+                {section.docs.map((doc) => <NavLink key={doc.slug} to={`/docs/${docProject.slug}/${doc.slug}`}>{doc.title}</NavLink>)}
+              </div>
+            ))}
+          </nav>
+        </details>
       )}
-      <article className="article">
-        {header}
-        <ReactMarkdown
-          components={markdownComponents}
-          remarkPlugins={markdownRemarkPlugins}
-        >
-          {body}
-        </ReactMarkdown>
-      </article>
+      <MarkdownArticleLayout key={title} articleClassName="article" body={body} className="markdown-article-layout--embedded">
+        <p className="section-label" lang="en">{label}</p>
+        <h1>{title}</h1>
+        <p className="article-meta">{meta}</p>
+      </MarkdownArticleLayout>
     </main>
   );
 }

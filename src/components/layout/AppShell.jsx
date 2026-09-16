@@ -1,7 +1,7 @@
 import { List, Moon, Sun, X } from "@phosphor-icons/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-import TargetCursor from "../reactbits/TargetCursor";
+import { getPageMetadata } from "../../content/pageMetadata";
 
 let visitCountRequest;
 const THEME_STORAGE_KEY = "jacky-theme";
@@ -55,6 +55,34 @@ export default function AppShell() {
   const [theme, setTheme] = useState(getInitialTheme);
   const [visitCount, setVisitCount] = useState(null);
   const location = useLocation();
+  const headerRef = useRef(null);
+  const menuButtonRef = useRef(null);
+
+  useEffect(() => {
+    const { title, lang } = getPageMetadata(location.pathname);
+    document.title = title;
+    document.documentElement.lang = lang;
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+    const closeOnEscape = (event) => {
+      if (event.key !== "Escape") return;
+      setMenuOpen(false);
+      menuButtonRef.current?.focus();
+    };
+    const closeOutside = (event) => {
+      if (!headerRef.current?.contains(event.target)) setMenuOpen(false);
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    document.addEventListener("pointerdown", closeOutside);
+    document.addEventListener("focusin", closeOutside);
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+      document.removeEventListener("pointerdown", closeOutside);
+      document.removeEventListener("focusin", closeOutside);
+    };
+  }, [menuOpen]);
 
   useEffect(() => {
     applyThemeToDocument(theme);
@@ -102,15 +130,13 @@ export default function AppShell() {
 
   return (
     <div className="site-shell">
-      <TargetCursor targetSelector="a, button" hoverDuration={0.16} />
-
-      <header className="site-header">
+      <header className="site-header" lang="en" ref={headerRef}>
         <NavLink className="wordmark" to="/" aria-label="Jacky home">Jacky</NavLink>
         <div className="site-header-actions">
-          <nav className={menuOpen ? "site-nav is-open" : "site-nav"} aria-label="Primary navigation">
+          <nav id="primary-navigation" className={menuOpen ? "site-nav is-open" : "site-nav"} aria-label="Primary navigation">
             <NavLink to="/" end>Home</NavLink>
-            <NavLink to="/projects">Projects</NavLink>
             <NavLink to="/notes">Notes</NavLink>
+            <NavLink to="/projects">Projects</NavLink>
             <NavLink to="/docs">Docs</NavLink>
           </nav>
           <button
@@ -127,7 +153,9 @@ export default function AppShell() {
           </button>
           <button
             className="menu-button"
+            ref={menuButtonRef}
             type="button"
+            aria-controls="primary-navigation"
             aria-label={menuOpen ? "Close navigation" : "Open navigation"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((value) => !value)}
@@ -142,7 +170,7 @@ export default function AppShell() {
 
       <Outlet />
 
-      <footer className="site-footer">
+      <footer className="site-footer" lang="en">
         <span>© 2026 Jacky</span>
         {visitCount !== null && (
           <span className="site-visit-count" aria-live="polite">

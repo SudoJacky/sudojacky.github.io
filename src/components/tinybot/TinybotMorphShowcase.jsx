@@ -20,14 +20,15 @@ import {
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLayoutEffect, useRef } from "react";
+import SkipShowcase from "../layout/SkipShowcase";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const suggestions = [
-  "Plan a task and show every execution step",
-  "Review this project and surface the riskiest decisions",
-  "Turn a folder of notes into a concise brief",
-  "Coordinate multiple agents around one outcome",
+  "Read the project and its instructions",
+  "Inspect the code and run checks",
+  "Trace each finding to its source",
+  "Write a report with verification notes",
 ];
 
 const workspaceFolders = [
@@ -46,7 +47,7 @@ export default function TinybotMorphShowcase() {
 
     media.add(
       {
-        desktop: "(min-width: 721px)",
+        desktop: "(min-width: 981px) and (min-height: 900px)",
         motion: "(prefers-reduced-motion: no-preference)",
       },
       ({ conditions }) => {
@@ -70,8 +71,8 @@ export default function TinybotMorphShowcase() {
         const availableWidth = () => stage.clientWidth;
         const pillWidth = () => Math.min(620, availableWidth() - 44);
         const composerWidth = () => Math.min(790, availableWidth() - 44);
-        const fullWidth = () => Math.min(1180, availableWidth() - 24);
-        const fullHeight = () => Math.min(700, stage.clientHeight - 38);
+        const fullWidth = () => Math.min(1180, availableWidth() - 56);
+        const fullHeight = () => Math.min(660, stage.clientHeight - 152);
 
         gsap.set(shell, {
           width: 80,
@@ -117,7 +118,7 @@ export default function TinybotMorphShowcase() {
             trigger: section,
             start: "top top+=82",
             end: "bottom bottom",
-            scrub: 0.75,
+            scrub: 0.3,
             invalidateOnRefresh: true,
           },
         });
@@ -207,7 +208,7 @@ export default function TinybotMorphShowcase() {
             composer,
             {
               width: () => fullWidth() * 0.42 - 32,
-              height: 170,
+              height: 160,
               right: 16,
               bottom: 18,
               duration: 1.45,
@@ -217,16 +218,15 @@ export default function TinybotMorphShowcase() {
           .to(
             welcome,
             {
-              width: "calc(100% - 36px)",
-              top: 104,
+              top: 82,
               duration: 1.1,
             },
-            "<0.1",
+            "<",
           )
           .to(
             prompt,
             {
-              top: 24,
+              top: 18,
               right: 20,
               left: 20,
               fontSize: 16,
@@ -261,12 +261,13 @@ export default function TinybotMorphShowcase() {
       aria-labelledby="tinybot-morph-title"
     >
       <div className="tinybot-morph-stage">
+        <SkipShowcase targetId="tinybot-question" />
         <div className="tinybot-morph-intro">
           <p className="section-label">SCROLL TO BUILD</p>
           <h2 id="tinybot-morph-title">One action becomes a workbench.</h2>
           <p>
-            Follow a single prompt as Tinybot adds intent, context, tools, memory,
-            and collaborating agents around it.
+            A project review, from its first instruction to a report you can
+            inspect. An illustrated walkthrough of the workspace.
           </p>
         </div>
 
@@ -274,7 +275,7 @@ export default function TinybotMorphShowcase() {
           <div className="tinybot-workbench-chat">
             <header className="tinybot-workbench-header">
               <div>
-                <strong>New session</strong>
+                <strong>Project review</strong>
                 <span><i />Native runtime ready</span>
               </div>
               <div aria-hidden="true">
@@ -284,9 +285,9 @@ export default function TinybotMorphShowcase() {
             </header>
 
             <div className="tinybot-workbench-welcome">
-              <p className="section-label">TINYBOT / NATIVE WORKBENCH</p>
-              <h3>What should Tinybot work on?</h3>
-              <p>Start with an outcome. Tinybot keeps the system around it visible.</p>
+              <p className="section-label">EXAMPLE WORKFLOW</p>
+              <h3>A task you can follow.</h3>
+              <p>Files, checks, and findings stay beside the conversation.</p>
               <div className="tinybot-workbench-suggestions">
                 {suggestions.map((suggestion) => (
                   <span key={suggestion}>{suggestion}</span>
@@ -297,8 +298,7 @@ export default function TinybotMorphShowcase() {
             <div className="tinybot-morph-composer">
               <span className="tinybot-morph-compact-hint">Describe a task...</span>
               <p className="tinybot-morph-prompt">
-                Plan a release-ready desktop assistant and keep every important
-                step observable.
+                Review this project and write a risk report.
               </p>
 
               <div className="tinybot-morph-signals">
@@ -357,7 +357,7 @@ export default function TinybotMorphShowcase() {
                   ))}
                   <span>
                     <FileText size={14} />
-                    shared-plan.md
+                    risk-report.md
                   </span>
                 </div>
                 <footer>Workspace root / ready</footer>
@@ -375,14 +375,14 @@ export default function TinybotMorphShowcase() {
                   <span>tinybot.local/shared</span>
                 </div>
                 <div className="tinybot-tinyos-browser-page">
-                  <small>LIVE SHARED VIEW</small>
+                  <small>SHARED REPORT / EXAMPLE</small>
                   <Globe size={38} weight="thin" />
-                  <h4>TinyOS keeps the work visible.</h4>
-                  <p>User and Tinybot can inspect the same workspace while the task runs.</p>
+                  <h4>Review ready to inspect.</h4>
+                  <p>Read the findings together, then give Tinybot the next instruction.</p>
                   <div>
-                    <span><i />Files indexed</span>
-                    <span><i />Browser shared</span>
-                    <span><i />Agent tools ready</span>
+                    <span><i />Findings with source references</span>
+                    <span><i />Checks and verification notes</span>
+                    <span><i />A report in the shared workspace</span>
                   </div>
                 </div>
                 <footer><i />USER HAS CONTROL</footer>
@@ -401,23 +401,23 @@ export default function TinybotMorphShowcase() {
         <div className="tinybot-morph-captions" aria-hidden="true">
           <p className="tinybot-morph-caption">
             <span>01 / ACTION</span>
-            One clear place to begin.
+            Start a project review with one instruction.
           </p>
           <p className="tinybot-morph-caption">
             <span>02 / INTENT</span>
-            The action opens into a prompt.
+            Define the outcome: a report of the project's risks.
           </p>
           <p className="tinybot-morph-caption">
             <span>03 / CONTEXT</span>
-            Tools, memory, and agents connect.
+            Connect project files, tools, and relevant memory.
           </p>
           <p className="tinybot-morph-caption">
             <span>04 / WORKBENCH</span>
-            The whole system becomes visible.
+            Follow the review: files read, checks run, findings recorded.
           </p>
           <p className="tinybot-morph-caption">
             <span>05 / TINYOS</span>
-            A shared space for human and agent work.
+            Inspect the report together in the shared desktop.
           </p>
         </div>
       </div>

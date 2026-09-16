@@ -1996,7 +1996,7 @@ function AnimatedHouse({ progressRef, staticProgress }) {
   const sensorsRef = useRef(null);
   const dynamicsRef = useRef(null);
 
-  useFrame(({ camera, clock }) => {
+  useFrame(({ camera, clock, size }) => {
     const progress = progressRef?.current ?? staticProgress;
     const enter = phase(progress, 0, 0.13);
     const explode = phase(progress, 0.13, 0.34);
@@ -2067,7 +2067,9 @@ function AnimatedHouse({ progressRef, staticProgress }) {
       MathUtils.lerp(13.2 + explode * 1.8, 14.3, focus),
       MathUtils.lerp(15.4, 13.4, focus),
     );
-    camera.zoom = MathUtils.lerp(56 - explode * 2, 68, focus);
+    // Fit the orthographic scene to the actual canvas, including narrow screens.
+    const fit = Math.min(size.width / 780, size.height / 680, 1.1);
+    camera.zoom = MathUtils.lerp(56 - explode * 2, 68, focus) * fit;
     camera.lookAt(
       MathUtils.lerp(0, 0.3, focus),
       MathUtils.lerp(2.7 + explode * 1.4, 0.58, focus),
@@ -2148,8 +2150,8 @@ function Scene({
       />
       <color attach="background" args={["#0b1113"]} />
       <fog attach="fog" args={["#0b1113", 17, 34]} />
-      <ambientLight color="#f7dec2" intensity={0.3} />
-      <hemisphereLight color="#d8c3aa" groundColor="#17130f" intensity={0.65} />
+      <ambientLight color="#f7dec2" intensity={0.45} />
+      <hemisphereLight color="#d8c3aa" groundColor="#17130f" intensity={0.8} />
       <directionalLight
         castShadow
         color="#f1ddc3"

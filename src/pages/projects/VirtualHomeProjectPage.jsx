@@ -99,7 +99,7 @@ export default function VirtualHomeProjectPage({ project }) {
       <section className="virtualhome-project-statement" aria-labelledby="virtualhome-question">
         <p className="section-label">THE QUESTION</p>
         <div>
-          <h2 id="virtualhome-question">
+          <h2 id="virtualhome-question" tabIndex={-1}>
             Can a home be understood as a living system before it is automated?
           </h2>
           <p>

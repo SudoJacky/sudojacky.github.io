@@ -12,6 +12,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLayoutEffect, useRef, useState } from "react";
 import VirtualHomeHouseScene from "./VirtualHomeHouseScene";
+import SkipShowcase from "../layout/SkipShowcase";
+import { useReducedMotion } from "../reactbits/useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -69,6 +71,8 @@ const stageForProgress = (progress) => {
   return 0;
 };
 
+const stageProgress = [0.1, 0.26, 0.42, 0.6, 0.78, 0.96];
+
 export default function VirtualHomeScrollShowcase() {
   const sectionRef = useRef(null);
   const progressRef = useRef(0);
@@ -76,44 +80,65 @@ export default function VirtualHomeScrollShowcase() {
   const stageRef = useRef(0);
   const [activeStage, setActiveStage] = useState(0);
   const [sceneVisible, setSceneVisible] = useState(false);
+  const triggerRef = useRef(null);
+  const reducedMotion = useReducedMotion();
+
+  const selectStage = (index) => {
+    const progress = stageProgress[index];
+    if (triggerRef.current) {
+      const { start, end } = triggerRef.current;
+      window.scrollTo({ top: start + (end - start) * progress, behavior: "instant" });
+    } else {
+      progressRef.current = progress;
+      stageRef.current = index;
+      setActiveStage(index);
+      renderSceneRef.current?.({ updateShadows: true });
+    }
+  };
 
   useLayoutEffect(() => {
-    const desktop = window.matchMedia("(min-width: 721px)");
-    const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
-
-    if (!desktop.matches || !motion.matches) {
-      progressRef.current = 0.88;
-      stageRef.current = 5;
-      setActiveStage(5);
+    const media = gsap.matchMedia();
+    media.add({
+      desktop: "(min-width: 981px) and (min-height: 900px)",
+      motion: "(prefers-reduced-motion: no-preference)",
+    }, ({ conditions }) => {
+      progressRef.current = stageProgress[0];
+      stageRef.current = 0;
+      setActiveStage(0);
       setSceneVisible(true);
       renderSceneRef.current?.({ updateShadows: true });
-      return undefined;
-    }
+      if (!conditions.desktop || !conditions.motion) return undefined;
 
-    const trigger = ScrollTrigger.create({
-      trigger: sectionRef.current,
-      start: "top top+=82",
-      end: "bottom bottom",
-      invalidateOnRefresh: true,
-      onToggle: ({ isActive }) => {
-        setSceneVisible(isActive);
-        if (isActive) {
+      const trigger = ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top+=82",
+        end: "bottom bottom",
+        invalidateOnRefresh: true,
+        onToggle: ({ isActive }) => {
+          setSceneVisible(isActive);
+          if (isActive) {
+            renderSceneRef.current?.({ updateShadows: true });
+          }
+        },
+        onUpdate: ({ progress }) => {
+          progressRef.current = progress;
           renderSceneRef.current?.({ updateShadows: true });
-        }
-      },
-      onUpdate: ({ progress }) => {
-        progressRef.current = progress;
-        renderSceneRef.current?.({ updateShadows: true });
-        const nextStage = stageForProgress(progress);
+          const nextStage = stageForProgress(progress);
 
-        if (nextStage !== stageRef.current) {
-          stageRef.current = nextStage;
-          setActiveStage(nextStage);
-        }
-      },
+          if (nextStage !== stageRef.current) {
+            stageRef.current = nextStage;
+            setActiveStage(nextStage);
+          }
+        },
+      });
+
+      triggerRef.current = trigger;
+      return () => {
+        trigger.kill();
+        triggerRef.current = null;
+      };
     });
-
-    return () => trigger.kill();
+    return () => media.revert();
   }, []);
 
   const currentStage = stages[activeStage];
@@ -126,10 +151,11 @@ export default function VirtualHomeScrollShowcase() {
     >
       <div className="virtualhome-scroll-stage">
         <header className="virtualhome-sim-header">
-          <span>VIRTUALHOME / LIVE MODEL</span>
-          <span><i />SIMULATION RUNNING</span>
+          <span>VIRTUALHOME / MODEL</span>
+          <span><i />ILLUSTRATED SCENARIO</span>
           <span>DAY 018 · 19:42</span>
         </header>
+        <SkipShowcase targetId="virtualhome-question" />
 
         <div className="virtualhome-stage-progress" aria-hidden="true">
           {stages.map(({ label }, index) => (
@@ -147,7 +173,7 @@ export default function VirtualHomeScrollShowcase() {
 
         <div className="virtualhome-scene" aria-label="Scroll-driven three-dimensional home model">
           <VirtualHomeHouseScene
-            animateSignals={sceneVisible && activeStage >= 4}
+            animateSignals={!reducedMotion && sceneVisible && activeStage >= 4}
             progressRef={progressRef}
             renderSceneRef={renderSceneRef}
           />
@@ -177,8 +203,10 @@ export default function VirtualHomeScrollShowcase() {
               data-complete={index < activeStage ? "true" : "false"}
               key={label}
             >
-              <span><Icon aria-hidden="true" size={16} weight="light" /></span>
-              <small>{label}</small>
+              <button type="button" aria-pressed={index === activeStage} onClick={() => selectStage(index)}>
+                <span><Icon aria-hidden="true" size={16} weight="light" /></span>
+                <small>{label}</small>
+              </button>
             </li>
           ))}
         </ol>

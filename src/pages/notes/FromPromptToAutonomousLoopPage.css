@@ -79,7 +79,7 @@
   max-width: 760px;
   margin: 0;
   color: var(--body-text);
-  font-family: "IBM Plex Sans", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(19px, 1.75vw, 25px);
   line-height: 1.65;
 }
@@ -206,7 +206,7 @@
   max-width: 460px;
   display: block;
   color: #9ba4a0;
-  font-family: "IBM Plex Sans", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.72;
 }
@@ -599,7 +599,7 @@
 .agent-loop-body p,
 .agent-loop-body li {
   color: var(--body-text);
-  font-family: "IBM Plex Sans", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 18px;
   line-height: 1.85;
 }
@@ -625,7 +625,7 @@
 
 .agent-loop-body code {
   color: var(--accent);
-  font-family: "IBM Plex Mono", Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 0.9em;
 }
 

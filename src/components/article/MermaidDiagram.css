@@ -37,7 +37,7 @@
   display: grid;
   place-items: center;
   color: var(--muted);
-  font-family: "IBM Plex Mono", Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
 }
 
@@ -48,7 +48,7 @@
 .mermaid-diagram--error figcaption {
   margin-bottom: 14px;
   color: #ff9b8f;
-  font-family: "IBM Plex Sans", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
 }
 

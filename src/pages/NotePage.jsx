@@ -27,7 +27,6 @@ export default function NotePage() {
       body={note.body}
       label="NOTE"
       meta={note.date}
-      showToc
       title={note.title}
     />
   );

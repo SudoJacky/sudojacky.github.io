@@ -8,13 +8,13 @@ export default function ProjectsPage() {
     <main className="interior-page">
       <PageIntro
         label="PROJECTS"
-        title="Things built to answer a question."
+        title="Projects"
         copy="Selected experiments and systems, with the decisions and documentation kept close to the code."
       />
       <div className="project-list">
-        {projects.map((project, index) => (
+        {projects.map((project) => (
           <NavLink className="project-row" key={project.slug} to={`/projects/${project.slug}`}>
-            <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
+            <img className="project-preview" src={`${import.meta.env.BASE_URL}images/projects/${project.slug === "tinybot" ? "tinybot-workbench.webp" : "virtualhome-model.png"}`} alt={project.slug === "tinybot" ? "Tinybot task and report workspace" : "VirtualHome residential model"} loading="lazy" />
             <div>
               <p className="section-label">{project.status}</p>
               <h2>{project.title}</h2>

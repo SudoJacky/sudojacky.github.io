@@ -107,7 +107,7 @@ export default function TinybotProjectPage({ project }) {
       <section className="tinybot-project-statement" aria-labelledby="tinybot-question">
         <p className="section-label">THE QUESTION</p>
         <div>
-          <h2 id="tinybot-question">
+          <h2 id="tinybot-question" tabIndex={-1}>
             What if an assistant showed its work instead of hiding the system behind the chat?
           </h2>
           <p>
